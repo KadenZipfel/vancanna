@@ -4,6 +4,7 @@ const dispensarySchema = new mongoose.Schema({
   name: String,
   location: String,
   description: String,
+  image: String,
   strains: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Strain'
@@ -14,4 +15,5 @@ const dispensarySchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Dispensary', dispensarySchema);
+var Dispensary = mongoose.model('Dispensary', dispensarySchema);
+module.exports = Dispensary;

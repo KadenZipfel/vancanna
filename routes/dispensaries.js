@@ -1,5 +1,6 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
+const Dispensary = require('../models/Dispensary');
 
 // Dispensaries index
 router.get('/', (req, res) => {
@@ -13,7 +14,19 @@ router.get('/new', (req, res) => {
 
 // New dispensary logic
 router.post('/', (req, res) => {
-  
+  Dispensary.create({
+    name: req.body.name,
+    location: req.body.location,
+    description: req.body.description,
+    image: req.body.image
+  }, (err, dispensary) => {
+    if(err) {
+      console.log(err.message);
+      return res.redirect('back');
+    }
+    console.log('Dispensary added to db: ', dispensary);
+    res.redirect('/dispensaries');
+  });
 });
 
 // Dispensary show page

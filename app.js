@@ -9,13 +9,6 @@ const session        = require('express-session');
 
 const PORT = process.env.PORT || 3000;
 
-// MongoClient.connect('mongodb://localhost:27017', (err, client) => {
-//   assert.equal(null, err);
-//   console.log('Connected to db');
-//   const db = client.db('vancanna');
-//   client.close();
-// });
-
 mongoose.connect('mongodb://localhost/vancanna-test');
 
 const db = mongoose.connection;
