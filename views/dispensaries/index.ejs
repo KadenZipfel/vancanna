@@ -1,6 +1,18 @@
 <% include ../partials/header %>
 
-<h1>Dispensaries page</h1>
-<a href="dispensaries/new">Add a new dispensary</a>
+<div class="container">
+  <h1>Dispensaries page</h1>
+  <a href="dispensaries/new">Add a new dispensary</a>
+  <% dispensaries.forEach((dispensary) => { %>
+    <div class="thumbnail">
+      <a href="dispensaries/<%= dispensary._id %>">
+        <img src="<%= dispensary.image %>" alt="<%= dispensary.name %>">
+      </a>
+      <a href="dispensaries/<%= dispensary._id %>">
+        <h4><%= dispensary.name %></h4>
+      </a>
+    </div>
+  <% }); %>
+</div>
 
 <% include ../partials/footer %>

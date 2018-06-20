@@ -1,5 +1,12 @@
 <% include ../partials/header %>
 
-<h1>Dispensary show page</h1>
+<div class="container">
+  <div class="thumbnail">
+    <img src="<%= dispensary.image %>" alt="<%= dispensary.name %>">
+    <h1><%= dispensary.name %></h1>
+    <p><%= dispensary.location %></p>
+    <p><%= dispensary.description %></p>
+  </div>
+</div>
 
 <% include ../partials/footer %>

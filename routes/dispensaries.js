@@ -4,7 +4,13 @@ const Dispensary = require('../models/Dispensary');
 
 // Dispensaries index
 router.get('/', (req, res) => {
-  res.render('dispensaries/index');
+  Dispensary.find({}, (err, dispensaries) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('dispensaries/index', {dispensaries: dispensaries});
+    }
+  });
 });
 
 // New dispensary page
@@ -31,7 +37,13 @@ router.post('/', (req, res) => {
 
 // Dispensary show page
 router.get('/:id', (req, res) => {
-  res.render('dispensaries/show');
+  Dispensary.findById(req.params.id, (err, dispensary) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('dispensaries/show', {dispensary: dispensary});
+    }
+  });
 });
 
 // Edit dispensary page
