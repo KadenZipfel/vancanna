@@ -1,5 +1,12 @@
 <% include ../partials/header %>
 
-<h1>Strain show page</h1>
+<div class="container">
+  <div class="thumbnail">
+    <img src="<%= strain.image %>" alt="<%= strain.name %>">
+    <h2><%= strain.name %></h2>
+    <p><%= strain.type %></p>
+    <p><%= strain.description %></p>
+  </div>
+</div>
 
 <% include ../partials/footer %>

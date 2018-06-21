@@ -5,14 +5,14 @@ const dispensarySchema = new mongoose.Schema({
   location: String,
   description: String,
   image: String,
-  strains: {
+  strains: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Strain'
-  },
-  reviews: {
+  }],
+  reviews: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Review'
-  }
+  }]
 });
 
 var Dispensary = mongoose.model('Dispensary', dispensarySchema);

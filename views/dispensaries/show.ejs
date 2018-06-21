@@ -8,6 +8,15 @@
     <p><%= dispensary.description %></p>
   </div>
   <a href="/dispensaries/<%= dispensary._id %>/edit">Edit</a>
+  <% dispensary.strains.forEach((strain) => { %>
+    <div class="thumbnail">
+      <a href="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>"><img src="<%= strain.image %>" alt="<%= strain.name %>"></a>
+      <a href="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>"><h4><%= strain.name %></h4></a>
+      <p><%= strain.type %></p>
+      <p><%= strain.description %></p>
+    </div>
+  <% }) %>
+  <a href="/dispensaries/<%= dispensary._id %>/strains/new">Add a new strain</a>
 </div>
 
 <% include ../partials/footer %>
