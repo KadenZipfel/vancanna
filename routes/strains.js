@@ -54,12 +54,30 @@ router.get('/:id', (req, res) => {
 
 // Strain edit page
 router.get('/:id/edit', (req, res) => {
-  res.render('strains/edit');
+  Strain.findById(req.params.id, (err, strain) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('strains/edit', {dispensary_id: req.params.id, strain: strain});
+    }
+  });
 });
 
 // Strain edit logic
 router.put('/:id', (req, res) => {
-  
+  Strain.findByIdAndUpdate(req.params.id, {
+    name: req.body.name,
+    description: req.body.description,
+    type: req.body.type,
+    image: req.body.image
+  }, (err, strain) => {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log('Strain updated: ', strain);
+      res.redirect('back');
+    }
+  });
 });
 
 // Strain delete logic

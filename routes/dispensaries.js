@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
 
 // Dispensary show page
 router.get('/:id', (req, res) => {
-  Dispensary.findById(req.params.id).populate('strains').exec((err, dispensary) => {
+  Dispensary.findById(req.params.id).populate('strains').populate('reviews').exec((err, dispensary) => {
     if(err) {
       console.log(err);
     } else {

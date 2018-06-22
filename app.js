@@ -28,13 +28,15 @@ const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');
 const dispensaryRoutes = require('./routes/dispensaries');
 const strainRoutes = require('./routes/strains');
-const reviewRoutes = require('./routes/reviews');
+const dispensaryReviewRoutes = require('./routes/dispensaryReviews');
+const strainReviewRoutes = require('./routes/strainReviews');
 
 app.use(indexRoutes);
 app.use(userRoutes);
 app.use('/dispensaries', dispensaryRoutes);
 app.use('/dispensaries/:id/strains', strainRoutes);
-app.use('/dispensaries/:id', reviewRoutes);
+app.use('/dispensaries/:id', dispensaryReviewRoutes);
+app.use('/dispensaries/:id/strains/:id', strainReviewRoutes);
 
 app.listen(PORT, () => {
   console.log(`The server is running on ${PORT}`);

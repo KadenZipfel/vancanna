@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
-  author: String, // To be changed to user model
+  text: String,
   rating: Number,
-  body: String
+  author: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    username: String
+  }
 });
 
 module.exports = mongoose.model('Review', reviewSchema);

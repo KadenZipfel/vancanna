@@ -16,6 +16,10 @@
       <p><%= strain.description %></p>
     </div>
   <% }) %>
+  <% dispensary.reviews.forEach((review) => { %>
+    <p><%= review.text %></p>
+    <p><%= review.rating %></p>
+  <% }) %>
   <a href="/dispensaries/<%= dispensary._id %>/strains/new">Add a new strain</a>
 </div>
 
