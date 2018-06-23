@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
 
 // Strain show page
 router.get('/:id', (req, res) => {
-  Strain.findById(req.params.id, (err, strain) => {
+  Strain.findById(req.params.id).populate('reviews').exec((err, strain) => {
     if(err) {
       console.log(err);
     } else {

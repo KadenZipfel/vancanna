@@ -8,6 +8,11 @@
     <p><%= strain.description %></p>
     <a href="<%= strain._id %>/edit">Edit Strain</a>
   </div>
+  <a href="<%= strain._id %>/reviews/new">Leave a review</a>
+  <% strain.reviews.forEach((review) => { %>
+    <p><%= review.text %></p>
+    <p><%= review.rating %></p>
+  <% }) %>
 </div>
 
 <% include ../partials/footer %>
