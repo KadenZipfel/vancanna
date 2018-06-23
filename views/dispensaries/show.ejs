@@ -8,6 +8,7 @@
     <p><%= dispensary.description %></p>
     <a href="/dispensaries/<%= dispensary._id %>/edit">Edit Dispensary</a>
   </div>
+  <h3>Strains</h3>
   <a href="/dispensaries/<%= dispensary._id %>/strains/new">Add a new strain</a>
   <% dispensary.strains.forEach((strain) => { %>
     <div class="thumbnail">
@@ -24,6 +25,7 @@
     <% dispensary.reviews.forEach((review) => { %>
       <p><%= review.text %></p>
       <p><%= review.rating %></p>
+      <a href="<%= dispensary._id %>/reviews/<%= review._id %>/edit">Edit Review</a>
     <% }) %>
   </div>
 </div>

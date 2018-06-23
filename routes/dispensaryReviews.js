@@ -42,12 +42,28 @@ router.post('/reviews', (req, res) => {
 
 // Edit dispensary review page
 router.get('/reviews/:id/edit', (req, res) => {
-  res.render('dispensaryReviews/edit');
+  Review.findById(req.params.id, (err, review) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('dispensaryReviews/edit', {dispensary_id: req.params.id, review: review});
+    }
+  });
 });
 
 // Edit dispensary review logic
-router.put('/dispensaryReviews/:id', (req, res) => {
-  
+router.put('/reviews/:id', (req, res) => {
+  Review.findByIdAndUpdate(req.params.id, {
+    text: req.body.text,
+    rating: req.body.rating
+  },(err, review) => {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log('Review updated: ', review);
+      res.redirect('back');
+    }
+  });
 });
 
 // Delete dispensary review logic
