@@ -7,6 +7,7 @@
     <p><%= dispensary.location %></p>
     <p><%= dispensary.description %></p>
     <a href="/dispensaries/<%= dispensary._id %>/edit">Edit Dispensary</a>
+    <form action="/dispensaries/<%= dispensary._id %>?_method=DELETE" method="POST"><button>Delete Dispensary</button></form>
   </div>
   <h3>Strains</h3>
   <a href="/dispensaries/<%= dispensary._id %>/strains/new">Add a new strain</a>

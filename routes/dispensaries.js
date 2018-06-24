@@ -76,7 +76,13 @@ router.put('/:id', (req, res) => {
 
 // Delete dispensary logic
 router.delete('/:id', (req, res) => {
-
+  Dispensary.findByIdAndRemove(req.params.id, (err) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.redirect('/dispensaries');
+    }
+  });
 });
 
 module.exports = router;
