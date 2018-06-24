@@ -12,6 +12,7 @@
   <% strain.reviews.forEach((review) => { %>
     <p><%= review.text %></p>
     <p><%= review.rating %></p>
+    <a href="<%= strain._id %>/reviews/<%= review._id %>/edit">Edit</a>
   <% }) %>
 </div>
 

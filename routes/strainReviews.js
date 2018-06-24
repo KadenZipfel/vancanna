@@ -44,12 +44,28 @@ router.post('/reviews', (req, res) => {
 
 // Edit strain review page
 router.get('/reviews/:id/edit', (req, res) => {
-  res.render('strainReviews/edit');
+  Review.findById(req.params.id, (err, review) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('strainReviews/edit', {dispensary_id: req.params.id, strain_id: req.params.id, review: review});
+    }
+  });
 });
 
 // Edit strain review logic
 router.put('/reviews/:id', (req, res) => {
-  
+  Review.findByIdAndUpdate(req.params.id, {
+    text: req.body.text,
+    rating: req.body.rating
+  }, (err, review) => {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log('Review updated: ', review);
+      res.redirect('back');
+    }
+  });
 });
 
 // Delete strain review logic
