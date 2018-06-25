@@ -68,7 +68,14 @@ router.put('/reviews/:id', (req, res) => {
 
 // Delete dispensary review logic
 router.delete('/dispensaryReviews/:id', (req, res) => {
-
+  Review.findByIdAndRemove(req.params.id, (err) => {
+    if(err) {
+      console.log(err);
+    } else {
+      // Redirect somewhere better later
+      res.redirect('/dispensaries');
+    }
+  });
 });
 
 module.exports = router;

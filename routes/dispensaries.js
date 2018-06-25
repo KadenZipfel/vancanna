@@ -41,7 +41,7 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaries/show', {dispensary: dispensary});
+      res.render('dispensaries/show', {dispensary: dispensary, strain_id: req.params.id});
     }
   });
 });

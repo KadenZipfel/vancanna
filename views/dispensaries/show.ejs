@@ -18,6 +18,7 @@
       <p><%= strain.type %></p>
       <p><%= strain.description %></p>
       <a href="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>/edit">Edit Strain</a>
+      <form action="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>?_method=DELETE" method="POST"><button>Delete Strain</button></form>
     </div>
   <% }) %>
   <div class="well">
@@ -27,6 +28,7 @@
       <p><%= review.text %></p>
       <p><%= review.rating %></p>
       <a href="<%= dispensary._id %>/reviews/<%= review._id %>/edit">Edit Review</a>
+      <form action="/dispensaries/<%= dispensary._id %>/strains/<%= strain_id %>/reviews/<%= review._id %>?_method=DELETE" method="POST"><button>Delete Review</button></form>
     <% }) %>
   </div>
 </div>

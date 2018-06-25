@@ -47,7 +47,7 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strains/show', {strain: strain});
+      res.render('strains/show', {strain: strain, dispensary_id: req.params.id});
     }
   });
 });
@@ -75,6 +75,7 @@ router.put('/:id', (req, res) => {
       console.log(err);
     } else {
       console.log('Strain updated: ', strain);
+      // Redirect somewhere better later
       res.redirect('back');
     }
   });
@@ -82,7 +83,14 @@ router.put('/:id', (req, res) => {
 
 // Strain delete logic
 router.delete('/:id', (req, res) => {
-  
+  Strain.findByIdAndRemove(req.params.id, (err) => {
+    if(err) {
+      console.log(err);
+    } else {
+      // Redirect somewhere better later
+      res.redirect('/dispensaries');
+    }
+  });
 });
 
 module.exports = router;

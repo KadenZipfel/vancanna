@@ -70,7 +70,14 @@ router.put('/reviews/:id', (req, res) => {
 
 // Delete strain review logic
 router.delete('/reviews/:id', (req, res) => {
-
+  Review.findByIdAndRemove(req.params.id, (err) => {
+    if(err) {
+      console.log(err);
+    } else {
+      // Redirect somewhere better later
+      res.redirect('/dispensaries');
+    }
+  });
 });
 
 module.exports = router;
