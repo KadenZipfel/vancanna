@@ -6,6 +6,7 @@ const mongoose       = require('mongoose');
 const MongoClient    = require('mongodb').MongoClient;
 const assert         = require('assert');
 const session        = require('express-session');
+const MongoStore     = require('connect-mongo')(session);
 
 const PORT = process.env.PORT || 3000;
 
@@ -21,7 +22,10 @@ app.use(methodOverride('_method'));
 app.use(session({
   secret: 'smoke weed',
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
 }));
 
 const indexRoutes = require('./routes/index');

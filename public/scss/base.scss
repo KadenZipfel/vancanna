@@ -1,3 +1,20 @@
 body {
   padding-top: 70px;
 }
+
+a:hover {
+  text-decoration: none;
+}
+
+.thumbnail {
+  padding: 0;
+}
+
+.thumbnail h1 {
+  margin-bottom: 10px;
+}
+
+.inline {
+  display: flex;
+  margin: 10px;
+}

@@ -1,6 +1,7 @@
 const express = require('express');
-const router  = express.Router();
-const User    = require('../models/User');
+const router = express.Router();
+const User = require('../models/User');
+const middleware = require('../middleware');
 
 // Login page
 router.get('/login', (req, res) => {
@@ -74,6 +75,17 @@ router.post('/signup', (req, res) => {
     err.status = 400;
     return next(err);
   }
+});
+
+// Profile Page
+router.get('/profile', middleware.isLoggedIn, (req, res) => {
+  User.findById(req.session.userId, (err, user) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('users/profile', {user: user});
+    }
+  });
 });
 
 module.exports = router;

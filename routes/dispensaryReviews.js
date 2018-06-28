@@ -67,7 +67,7 @@ router.put('/reviews/:id', (req, res) => {
 });
 
 // Delete dispensary review logic
-router.delete('/dispensaryReviews/:id', (req, res) => {
+router.delete('/reviews/:id', (req, res) => {
   Review.findByIdAndRemove(req.params.id, (err) => {
     if(err) {
       console.log(err);
