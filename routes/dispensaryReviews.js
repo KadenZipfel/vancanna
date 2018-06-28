@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const Dispensary = require('../models/Dispensary');
 const Review = require('../models/Review');
+const User = require('../models/User');
 
 // DISPENSARY REVIEWS
 
@@ -11,7 +12,7 @@ router.get('/reviews/new', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaryReviews/new', {dispensary: dispensary,session: req.session});
+      res.render('dispensaryReviews/new', {dispensary: dispensary, session: req.session});
     }
   });
 });
@@ -29,11 +30,18 @@ router.post('/reviews', (req, res) => {
         if(err) {
           console.log(err);
         } else {
-          // Add author later
-          review.save();
-          dispensary.reviews.push(review._id);
-          dispensary.save();
-          res.redirect('/dispensaries/' + dispensary._id);
+          User.findById(req.session.userId, (err, user) => {
+            if(err) {
+              console.log(err);
+            } else {
+              review.author.id = user._id;
+              review.author.username = user.username;
+              review.save();
+              dispensary.reviews.push(review._id);
+              dispensary.save();
+              res.redirect('/dispensaries/' + dispensary._id);
+            }
+          });
         }
       });
     }

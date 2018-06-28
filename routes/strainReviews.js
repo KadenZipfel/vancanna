@@ -3,6 +3,7 @@ const router = express.Router({mergeParams: true});
 const Strain = require('../models/Strain');
 const Dispensary = require('../models/Dispensary');
 const Review = require('../models/Review');
+const User = require('../models/User');
 
 
 // STRAIN REVIEWS
@@ -31,11 +32,18 @@ router.post('/reviews', (req, res) => {
         if(err) {
           console.log(err);
         } else {
-          // Add author later
-          review.save();
-          strain.reviews.push(review._id);
-          strain.save();
-          res.redirect('back');
+          User.findById(req.session.userId, (err, user) => {
+            if(err) {
+              console.log(err);
+            } else {
+              review.author.id = user._id;
+              review.author.username = user.username;
+              review.save();
+              strain.reviews.push(review._id);
+              strain.save();
+              res.redirect('back');
+            }
+          });
         }
       });
     }

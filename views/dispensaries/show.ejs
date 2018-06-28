@@ -8,7 +8,7 @@
         <a class="pull-right" href="<%= dispensary._id %>/reviews/new">Leave a Review</a>
         <% dispensary.reviews.forEach((review) => { %>
           <div class="reviews">
-            <h5>Author</h5>
+            <h5><%= review.author.username %></h5>
             <p><%= review.text %></p>
             <p><%= review.rating %> &#9733;</p>
             <div class="inline">

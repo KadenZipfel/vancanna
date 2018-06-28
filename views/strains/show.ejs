@@ -11,6 +11,7 @@
   </div>
   <a href="<%= strain._id %>/reviews/new">Leave a review</a>
   <% strain.reviews.forEach((review) => { %>
+    <h5><%= review.author.username %></h5>
     <p><%= review.text %></p>
     <p><%= review.rating %></p>
     <a href="<%= strain._id %>/reviews/<%= review._id %>/edit">Edit Review</a>
