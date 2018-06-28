@@ -13,7 +13,7 @@ router.get('/reviews/new', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strainReviews/new', {dispensary_id: req.params.id, strain: strain});
+      res.render('strainReviews/new', {dispensary_id: req.params.id, strain: strain, session: req.session});
     }
   }); 
 });
@@ -48,7 +48,7 @@ router.get('/reviews/:id/edit', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strainReviews/edit', {dispensary_id: req.params.id, strain_id: req.params.id, review: review});
+      res.render('strainReviews/edit', {dispensary_id: req.params.id, strain_id: req.params.id, review: review, session: req.session});
     }
   });
 });

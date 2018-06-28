@@ -8,14 +8,14 @@ router.get('/', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaries/index', {dispensaries: dispensaries});
+      res.render('dispensaries/index', {dispensaries: dispensaries, session: req.session});
     }
   });
 });
 
 // New dispensary page
 router.get('/new', (req, res) => {
-  res.render('dispensaries/new');
+  res.render('dispensaries/new', {session: req.session});
 });
 
 // New dispensary logic
@@ -41,7 +41,7 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaries/show', {dispensary: dispensary, strain_id: req.params.id});
+      res.render('dispensaries/show', {dispensary: dispensary, strain_id: req.params.id, session: req.session});
     }
   });
 });
@@ -52,7 +52,7 @@ router.get('/:id/edit', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaries/edit', {dispensary: dispensary});
+      res.render('dispensaries/edit', {dispensary: dispensary, session: req.session});
     }
   });
 });

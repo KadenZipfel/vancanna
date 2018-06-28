@@ -5,7 +5,7 @@ const middleware = require('../middleware');
 
 // Login page
 router.get('/login', (req, res) => {
-  res.render('users/login');
+  res.render('users/login', {session: req.session});
 });
 
 // Login logic
@@ -39,7 +39,7 @@ router.get('/logout', (req, res, next) => {
 
 // Sign up page
 router.get('/signup', (req, res) => {
-  res.render('users/signup');
+  res.render('users/signup', {session: req.session});
 });
 
 // Sign up logic
@@ -83,7 +83,7 @@ router.get('/profile', middleware.isLoggedIn, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('users/profile', {user: user});
+      res.render('users/profile', {user: user, session: req.session});
     }
   });
 });

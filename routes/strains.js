@@ -9,7 +9,7 @@ router.get('/new', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strains/new', {dispensary: dispensary});
+      res.render('strains/new', {dispensary: dispensary, session: req.session});
     }
   });
 });
@@ -47,7 +47,7 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strains/show', {strain: strain, dispensary_id: req.params.id});
+      res.render('strains/show', {strain: strain, dispensary_id: req.params.id, session: req.session});
     }
   });
 });
@@ -58,7 +58,7 @@ router.get('/:id/edit', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strains/edit', {dispensary_id: req.params.id, strain: strain});
+      res.render('strains/edit', {dispensary_id: req.params.id, strain: strain, session: req.session});
     }
   });
 });

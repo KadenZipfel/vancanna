@@ -11,7 +11,7 @@ router.get('/reviews/new', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaryReviews/new', {dispensary: dispensary});
+      res.render('dispensaryReviews/new', {dispensary: dispensary,session: req.session});
     }
   });
 });
@@ -46,7 +46,7 @@ router.get('/reviews/:id/edit', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaryReviews/edit', {dispensary_id: req.params.id, review: review});
+      res.render('dispensaryReviews/edit', {dispensary_id: req.params.id, review: review, session: req.session});
     }
   });
 });
