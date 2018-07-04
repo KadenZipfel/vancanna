@@ -5,6 +5,13 @@ const dispensarySchema = new mongoose.Schema({
   location: String,
   description: String,
   image: String,
+  author: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    username: String
+  },
   strains: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Strain'

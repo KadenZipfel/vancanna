@@ -1,0 +1,11 @@
+.review {
+  padding: 5px 10px;
+}
+
+.review:nth-of-type(odd) {
+  background-color: #f4f6f9;
+}
+
+.review__author {
+  text-transform: uppercase;
+}

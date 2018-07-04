@@ -5,10 +5,26 @@ a:hover {
   text-decoration: none; }
 
 .thumbnail {
-  padding: 0; }
+  padding: 0;
+  height: 20vh;
+  overflow: hidden;
+  position: relative; }
+  .thumbnail:hover img {
+    filter: blur(5px); }
 
-.thumbnail h1 {
-  margin-bottom: 10px; }
+.thumbnail img {
+  height: 100%;
+  position: center; }
+
+.thumbnail h3 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 0 0px 5px rgba(0, 0, 0, 0.8); }
+  .thumbnail h3:hover {
+    color: white; }
 
 .inline {
   display: flex;
@@ -27,8 +43,21 @@ a:hover {
   .dispensaries__name:hover {
     color: #1c1c1c; }
 
+.dispensary {
+  display: flex;
+  flex-direction: row; }
+  @media (max-width: 1000px) {
+    .dispensary {
+      flex-direction: column; } }
+
+.dispensary__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px; }
+
 .dispensary__img {
-  max-height: 50vh;
+  max-height: 40vh;
   width: auto; }
 
 .dispensary__location {
@@ -53,3 +82,29 @@ a:hover {
 
 .strains__btn {
   margin-bottom: 20px; }
+
+.review {
+  padding: 5px 10px; }
+
+.review:nth-of-type(odd) {
+  background-color: #f4f6f9; }
+
+.review__author {
+  text-transform: uppercase; }
+
+.strain {
+  display: flex;
+  flex-direction: row; }
+  @media (max-width: 1000px) {
+    .strain {
+      flex-direction: column; } }
+
+.strain__img {
+  max-height: 40vh;
+  width: auto; }
+
+.strain__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px; }

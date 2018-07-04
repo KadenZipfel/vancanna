@@ -4,9 +4,7 @@ const Strain = require('../models/Strain');
 const Dispensary = require('../models/Dispensary');
 const Review = require('../models/Review');
 const User = require('../models/User');
-
-
-// STRAIN REVIEWS
+const middleware = require('../middleware');
 
 // New strain review page
 router.get('/reviews/new', (req, res) => {
@@ -36,6 +34,12 @@ router.post('/reviews', (req, res) => {
             if(err) {
               console.log(err);
             } else {
+              if(!user.points) {
+                user.points = 10;
+              } else {
+                user.points += 10;
+              }
+              user.save();
               review.author.id = user._id;
               review.author.username = user.username;
               review.save();
@@ -51,7 +55,7 @@ router.post('/reviews', (req, res) => {
 });
 
 // Edit strain review page
-router.get('/reviews/:id/edit', (req, res) => {
+router.get('/reviews/:id/edit', middleware.checkReviewOwnership, (req, res) => {
   Review.findById(req.params.id, (err, review) => {
     if(err) {
       console.log(err);
@@ -62,7 +66,7 @@ router.get('/reviews/:id/edit', (req, res) => {
 });
 
 // Edit strain review logic
-router.put('/reviews/:id', (req, res) => {
+router.put('/reviews/:id', middleware.checkReviewOwnership, (req, res) => {
   Review.findByIdAndUpdate(req.params.id, {
     text: req.body.text,
     rating: req.body.rating
@@ -77,7 +81,7 @@ router.put('/reviews/:id', (req, res) => {
 });
 
 // Delete strain review logic
-router.delete('/reviews/:id', (req, res) => {
+router.delete('/reviews/:id', middleware.checkReviewOwnership, (req, res) => {
   Review.findByIdAndRemove(req.params.id, (err) => {
     if(err) {
       console.log(err);

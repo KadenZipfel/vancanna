@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const Dispensary = require('../models/Dispensary');
 const Strain = require('../models/Strain');
+const middleware = require('../middleware');
+const User = require('../models/User');
 
 // New strain page
 router.get('/new', (req, res) => {
@@ -31,11 +33,20 @@ router.post('/', (req, res) => {
           console.log(err.message);
           return res.redirect('back');
         }
+        User.findById(req.session.userId, (err, user) => {
+          if(err) {
+            console.log(err);
+          } else {
+            strain.author.id = user._id;
+            strain.author.username = user.username;
+            strain.save();
+          }
+        });
         strain.save();
         dispensary.strains.push(strain._id);
         dispensary.save();
         console.log('Strain added to db: ', strain);
-        res.redirect('/');
+        res.redirect('back');
       });
     }
   });
@@ -53,7 +64,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Strain edit page
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', middleware.checkStrainOwnership, (req, res) => {
   Strain.findById(req.params.id, (err, strain) => {
     if(err) {
       console.log(err);
@@ -64,7 +75,7 @@ router.get('/:id/edit', (req, res) => {
 });
 
 // Strain edit logic
-router.put('/:id', (req, res) => {
+router.put('/:id', middleware.checkStrainOwnership, (req, res) => {
   Strain.findByIdAndUpdate(req.params.id, {
     name: req.body.name,
     description: req.body.description,
@@ -82,7 +93,7 @@ router.put('/:id', (req, res) => {
 });
 
 // Strain delete logic
-router.delete('/:id', (req, res) => {
+router.delete('/:id', middleware.checkStrainOwnership, (req, res) => {
   Strain.findByIdAndRemove(req.params.id, (err) => {
     if(err) {
       console.log(err);

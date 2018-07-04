@@ -1,5 +1,21 @@
+.dispensary {
+  display: flex;
+  flex-direction: row;
+
+  @media(max-width: 1000px) {
+    flex-direction: column;
+  }
+}
+
+.dispensary__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+}
+
 .dispensary__img {
-  max-height: 50vh;
+  max-height: 40vh;
   width: auto;
 }
 

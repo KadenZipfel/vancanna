@@ -18,9 +18,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  passwordConf: {
-    type: String,
-    required: true
+  points: {
+    type: Number
   }
 });
 

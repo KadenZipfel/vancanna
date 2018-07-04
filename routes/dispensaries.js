@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Dispensary = require('../models/Dispensary');
+const middleware = require('../middleware');
+const User = require('../models/User');
 
 // Dispensaries index
 router.get('/', (req, res) => {
@@ -30,6 +32,15 @@ router.post('/', (req, res) => {
       console.log(err.message);
       return res.redirect('back');
     }
+    User.findById(req.session.userId, (err, user) => {
+      if(err) {
+        console.log(err);
+      } else {
+        dispensary.author.id = user._id;
+        dispensary.author.username = user.username;
+        dispensary.save();
+      }
+    });
     console.log('Dispensary added to db: ', dispensary);
     res.redirect('/dispensaries');
   });
@@ -37,17 +48,24 @@ router.post('/', (req, res) => {
 
 // Dispensary show page
 router.get('/:id', (req, res) => {
-  Dispensary.findById(req.params.id).populate('strains').populate('reviews').exec((err, dispensary) => {
+  Dispensary.findById(req.params.id)
+    .populate('strains')
+    .populate('reviews')
+    .exec((err, dispensary) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaries/show', {dispensary: dispensary, strain_id: req.params.id, session: req.session});
+      res.render('dispensaries/show', {
+        dispensary: dispensary, 
+        strain_id: req.params.id,
+        session: req.session
+      });
     }
   });
 });
 
 // Edit dispensary page
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', middleware.checkDispensaryOwnership, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);
@@ -58,7 +76,7 @@ router.get('/:id/edit', (req, res) => {
 });
 
 // Edit dispensary logic
-router.put('/:id', (req, res) => {
+router.put('/:id', middleware.checkDispensaryOwnership, (req, res) => {
   Dispensary.findByIdAndUpdate(req.params.id, {
     name: req.body.name,
     location: req.body.location,
@@ -75,7 +93,7 @@ router.put('/:id', (req, res) => {
 });
 
 // Delete dispensary logic
-router.delete('/:id', (req, res) => {
+router.delete('/:id', middleware.checkDispensaryOwnership, (req, res) => {
   Dispensary.findByIdAndRemove(req.params.id, (err) => {
     if(err) {
       console.log(err);

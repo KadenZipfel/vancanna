@@ -3,6 +3,7 @@ const router = express.Router({mergeParams: true});
 const Dispensary = require('../models/Dispensary');
 const Review = require('../models/Review');
 const User = require('../models/User');
+const middleware = require('../middleware');
 
 // DISPENSARY REVIEWS
 
@@ -34,6 +35,12 @@ router.post('/reviews', (req, res) => {
             if(err) {
               console.log(err);
             } else {
+              if(!user.points) {
+                user.points = 25;
+              } else {
+                user.points += 25;
+              }
+              user.save();
               review.author.id = user._id;
               review.author.username = user.username;
               review.save();
@@ -49,7 +56,7 @@ router.post('/reviews', (req, res) => {
 });
 
 // Edit dispensary review page
-router.get('/reviews/:id/edit', (req, res) => {
+router.get('/reviews/:id/edit', middleware.checkReviewOwnership, (req, res) => {
   Review.findById(req.params.id, (err, review) => {
     if(err) {
       console.log(err);
@@ -60,7 +67,7 @@ router.get('/reviews/:id/edit', (req, res) => {
 });
 
 // Edit dispensary review logic
-router.put('/reviews/:id', (req, res) => {
+router.put('/reviews/:id', middleware.checkReviewOwnership, (req, res) => {
   Review.findByIdAndUpdate(req.params.id, {
     text: req.body.text,
     rating: req.body.rating
@@ -75,7 +82,7 @@ router.put('/reviews/:id', (req, res) => {
 });
 
 // Delete dispensary review logic
-router.delete('/reviews/:id', (req, res) => {
+router.delete('/reviews/:id', middleware.checkReviewOwnership, (req, res) => {
   Review.findByIdAndRemove(req.params.id, (err) => {
     if(err) {
       console.log(err);
