@@ -8,10 +8,12 @@
         <h1 class="text-center"><%= dispensary.name %></h1>
         <p class="dispensary__location text-center"><%= dispensary.location %></p>
         <p class="dispensary__description text-center"><%= dispensary.description %></p>
-        <div class="inline">
-          <a class="btn btn-default" href="/dispensaries/<%= dispensary._id %>/edit">Edit Dispensary</a>
-          <form action="/dispensaries/<%= dispensary._id %>?_method=DELETE" method="POST"><button>Delete Dispensary</button></form>
-        </div>
+        <% if(dispensary.author.id.equals(session.userId)) { %>
+          <div class="inline">
+            <a class="btn btn-default" href="/dispensaries/<%= dispensary._id %>/edit">Edit Dispensary</a>
+            <form action="/dispensaries/<%= dispensary._id %>?_method=DELETE" method="POST"><button>Delete Dispensary</button></form>
+          </div>
+        <% } %>
       </div>
     </div>
   </div>

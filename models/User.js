@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema({
   },
   points: {
     type: Number
+  },
+  admin: {
+    type: Boolean,
+    default: false
+  },
+  moderator: {
+    type: Boolean,
+    default: false
   }
 });
 

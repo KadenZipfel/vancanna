@@ -7,10 +7,12 @@
       <h2 class="text-center"><%= strain.name %></h2>
       <p class="text-center"><%= strain.type %></p>
       <p class="text-center"><%= strain.description %></p>
-      <div class="inline">
-        <a href="<%= strain._id %>/edit">Edit Strain</a>
-        <form action="/dispensaries/<%= dispensary_id %>/strains/<%= strain._id %>?_method=DELETE" method="POST"><button>Delete Strain</button></form>
-      </div>
+      <% if(strain.author.id.equals(session.userId)) { %>
+        <div class="inline">
+          <a href="<%= strain._id %>/edit">Edit Strain</a>
+          <form action="/dispensaries/<%= dispensary_id %>/strains/<%= strain._id %>?_method=DELETE" method="POST"><button>Delete Strain</button></form>
+        </div>
+      <% } %>
     </div>
   </div>
   <hr>

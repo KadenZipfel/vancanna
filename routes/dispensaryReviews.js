@@ -8,7 +8,7 @@ const middleware = require('../middleware');
 // DISPENSARY REVIEWS
 
 // New dispensary review page
-router.get('/reviews/new', (req, res) => {
+router.get('/reviews/new', middleware.isLoggedIn, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);
@@ -19,7 +19,7 @@ router.get('/reviews/new', (req, res) => {
 });
 
 // New dispensary review logic
-router.post('/reviews', (req, res) => {
+router.post('/reviews', middleware.isLoggedIn, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);

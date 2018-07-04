@@ -6,7 +6,7 @@ const middleware = require('../middleware');
 const User = require('../models/User');
 
 // New strain page
-router.get('/new', (req, res) => {
+router.get('/new', middleware.isLoggedIn, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);
@@ -17,7 +17,7 @@ router.get('/new', (req, res) => {
 });
 
 // New strain logic
-router.post('/', (req, res) => {
+router.post('/', middleware.isLoggedIn, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);

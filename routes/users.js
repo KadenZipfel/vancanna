@@ -78,4 +78,33 @@ router.get('/profile', middleware.isLoggedIn, (req, res) => {
   });
 });
 
+// ADMIN ROUTES
+// ------------
+
+// Admin Page
+router.get('/admin', middleware.isLoggedIn, (req, res) => {
+  res.render('users/admin', {session: req.session});
+});
+
+// Admin Logic
+router.post('/admin', middleware.isLoggedIn, (req, res) => {
+  User.findById(req.session.userId, (err, user) => {
+    if(err) {
+      console.log(err);
+    } else {
+      // Move secret later
+      if(req.body.secret == 'high') {
+        user.admin = true;
+        user.save();
+        console.log('Successfully added as admin')
+        res.redirect('/');
+      } else {
+        console.log('Secret is incorrect, please try again.');
+        res.redirect('back');
+      }
+    }
+  });
+});
+
+
 module.exports = router;

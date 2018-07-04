@@ -16,12 +16,12 @@ router.get('/', (req, res) => {
 });
 
 // New dispensary page
-router.get('/new', (req, res) => {
+router.get('/new', middleware.isLoggedIn, (req, res) => {
   res.render('dispensaries/new', {session: req.session});
 });
 
 // New dispensary logic
-router.post('/', (req, res) => {
+router.post('/', middleware.isLoggedIn, (req, res) => {
   Dispensary.create({
     name: req.body.name,
     location: req.body.location,

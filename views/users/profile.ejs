@@ -3,6 +3,9 @@
 <div class="container">
   <h1><%= user.username %></h1>
   <p>Review points: <%= user.points %></p>
+  <% if(user.admin == true) { %>
+    <p>Admin</p>
+  <% } %>
 </div>
 
 <% include ../partials/footer %>
