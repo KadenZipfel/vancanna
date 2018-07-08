@@ -10,18 +10,24 @@ router.get('/', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaries/index', {dispensaries: dispensaries, session: req.session});
+      User.findById(req.session.userId, (err, user) => {
+        if(err) {
+          console.log(err);
+        } else {
+          res.render('dispensaries/index', {dispensaries: dispensaries, user: user, session: req.session});
+        }
+      });
     }
   });
 });
 
 // New dispensary page
-router.get('/new', middleware.isLoggedIn, (req, res) => {
+router.get('/new', middleware.isAdmin, (req, res) => {
   res.render('dispensaries/new', {session: req.session});
 });
 
 // New dispensary logic
-router.post('/', middleware.isLoggedIn, (req, res) => {
+router.post('/', middleware.isAdmin, (req, res) => {
   Dispensary.create({
     name: req.body.name,
     location: req.body.location,
@@ -55,10 +61,17 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaries/show', {
-        dispensary: dispensary, 
-        strain_id: req.params.id,
-        session: req.session
+      User.findById(req.session.userId, (err, user) => {
+        if(err) {
+          console.log(err);
+        } else {
+          res.render('dispensaries/show', {
+            dispensary: dispensary, 
+            user: user,
+            strain_id: req.params.id,
+            session: req.session
+          });
+        }
       });
     }
   });

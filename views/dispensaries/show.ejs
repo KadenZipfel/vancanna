@@ -8,7 +8,7 @@
         <h1 class="text-center"><%= dispensary.name %></h1>
         <p class="dispensary__location text-center"><%= dispensary.location %></p>
         <p class="dispensary__description text-center"><%= dispensary.description %></p>
-        <% if(dispensary.author.id.equals(session.userId)) { %>
+        <% if(dispensary.author.id.equals(session.userId) || session.userId && user.moderator == true) { %>
           <div class="inline">
             <a class="btn btn-default" href="/dispensaries/<%= dispensary._id %>/edit">Edit Dispensary</a>
             <form action="/dispensaries/<%= dispensary._id %>?_method=DELETE" method="POST"><button>Delete Dispensary</button></form>
@@ -27,10 +27,12 @@
         <h4 class="review__author"><%= review.author.username %></h4>
         <p class="review__rating pull-right"><%= review.rating %> &#9733;</p>
         <p class="review__text"><%= review.text %></p>
-        <div class="inline">
-          <a class="btn btn-default" href="<%= dispensary._id %>/reviews/<%= review._id %>/edit">Edit Review</a>
-          <form action="/dispensaries/<%= dispensary._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST"><button>Delete Review</button></form>
-        </div>
+        <% if(review.author.id.equals(session.userId) || session.userId && user.moderator == true) { %>
+          <div class="inline">
+            <a class="btn btn-default" href="<%= dispensary._id %>/reviews/<%= review._id %>/edit">Edit Review</a>
+            <form action="/dispensaries/<%= dispensary._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST"><button>Delete Review</button></form>
+          </div>
+        <% } %>
       </div>
     <% }) %>
   </div>
@@ -47,7 +49,9 @@
           </div>
         <% }) %>
       </div>
-      <a class="text-center btn btn-default strains__btn" href="/dispensaries/<%= dispensary._id %>/strains/new">Add a new strain</a>
+      <% if(session.userId && user.admin || session.userId && user.moderator == true) { %>
+        <a class="text-center btn btn-default strains__btn" href="/dispensaries/<%= dispensary._id %>/strains/new">Add a new strain</a>
+      <% } %>
     </div>
   </div>
 </div>

@@ -24,7 +24,7 @@ router.post('/login', (req, res) => {
 });
 
 // Logout logic
-router.get('/logout', (req, res, next) => {
+router.get('/logout', middleware.isLoggedIn, (req, res, next) => {
   if(req.session) {
     req.session.destroy((err) => {
       if(err) {
@@ -97,6 +97,34 @@ router.post('/admin', middleware.isLoggedIn, (req, res) => {
         user.admin = true;
         user.save();
         console.log('Successfully added as admin')
+        res.redirect('/');
+      } else {
+        console.log('Secret is incorrect, please try again.');
+        res.redirect('back');
+      }
+    }
+  });
+});
+
+// MODERATOR ROUTES
+// ----------------
+
+// Moderator Page
+router.get('/moderator', middleware.isLoggedIn, (req, res) => {
+  res.render('users/moderator', {session: req.session});
+});
+
+// Moderator Logic
+router.post('/moderator', middleware.isLoggedIn, (req, res) => {
+  User.findById(req.session.userId, (err, user) => {
+    if(err) {
+      console.log(err);
+    } else {
+      // Move secret later
+      if(req.body.secret == 'highmod') {
+        user.moderator = true;
+        user.save();
+        console.log('Successfully added as moderator')
         res.redirect('/');
       } else {
         console.log('Secret is incorrect, please try again.');

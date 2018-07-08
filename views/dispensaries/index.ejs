@@ -16,7 +16,9 @@
       </div>
     <% }); %>
   </div>
-  <a class="btn btn-default" href="dispensaries/new">Add a new dispensary</a>
+  <% if(session.userId && user.admin || session.userId && user.moderator == true) { %>
+    <a class="btn btn-default" href="dispensaries/new">Add a new dispensary</a>
+  <% } %>
 </div>
 
 <% include ../partials/footer %>

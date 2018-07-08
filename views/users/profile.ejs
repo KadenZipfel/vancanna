@@ -6,6 +6,9 @@
   <% if(user.admin == true) { %>
     <p>Admin</p>
   <% } %>
+  <% if(user.moderator == true) { %>
+    <p>Moderator</p>
+  <% } %>
 </div>
 
 <% include ../partials/footer %>

@@ -6,7 +6,7 @@ const middleware = require('../middleware');
 const User = require('../models/User');
 
 // New strain page
-router.get('/new', middleware.isLoggedIn, (req, res) => {
+router.get('/new', middleware.isAdmin, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);
@@ -17,7 +17,7 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 });
 
 // New strain logic
-router.post('/', middleware.isLoggedIn, (req, res) => {
+router.post('/', middleware.isAdmin, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);
@@ -58,7 +58,19 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strains/show', {strain: strain, dispensary_id: req.params.id, session: req.session});
+      User.findById(req.session.userId, (err, user) => {
+        if(err) {
+          console.log(err);
+        } else {
+          Strain.find({}, (err, strains) => {
+            if(err) {
+              console.log(err);
+            } else {
+              res.render('strains/show', {strain: strain, strains: strains, user: user, dispensary_id: req.params.id, session: req.session});
+            }
+          });
+        }
+      });
     }
   });
 });

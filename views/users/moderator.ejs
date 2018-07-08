@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
+    <h1 style="text-align: center;">Enter Moderator Secret to Become a Moderator</h1>
+    <div class="well login-well">
+      <form action="/moderator" method="POST">
+        <div class="form-group">
+          <input class="form-control" type="password" name="secret" placeholder="Secret" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block">Become Moderator</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>

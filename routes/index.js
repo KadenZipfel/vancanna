@@ -21,4 +21,9 @@ router.get('/', (req, res) => {
   });
 });
 
+// About Page
+router.get('/about', (req, res) => {
+  res.render('about', {session: req.session});
+});
+
 module.exports = router;
