@@ -7,6 +7,7 @@
       <h2 class="text-center"><%= strain.name %></h2>
       <p class="text-center"><%= strain.type %></p>
       <p class="text-center"><%= strain.description %></p>
+      <p class="text-center"><%= avgRating %> &#9733;</p>
       <% if(strain.author.id.equals(session.userId) || session.userId && user.moderator == true) { %>
         <div class="inline">
           <a href="<%= strain._id %>/edit">Edit Strain</a>

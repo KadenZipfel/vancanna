@@ -61,6 +61,12 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
+      let total = 0;
+      for(var i = 0; i < dispensary.reviews.length; i++) {
+        total += dispensary.reviews[i].rating;
+      }
+      const avg = total / dispensary.reviews.length;
+
       User.findById(req.session.userId, (err, user) => {
         if(err) {
           console.log(err);
@@ -69,7 +75,8 @@ router.get('/:id', (req, res) => {
             dispensary: dispensary, 
             user: user,
             strain_id: req.params.id,
-            session: req.session
+            session: req.session,
+            avgRating: avg
           });
         }
       });

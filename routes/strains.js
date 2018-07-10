@@ -58,6 +58,12 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
+      let total = 0;
+      for(var i = 0; i < strain.reviews.length; i++) {
+        total += strain.reviews[i].rating;
+      }
+      const avg = total / strain.reviews.length;
+
       User.findById(req.session.userId, (err, user) => {
         if(err) {
           console.log(err);
@@ -66,7 +72,14 @@ router.get('/:id', (req, res) => {
             if(err) {
               console.log(err);
             } else {
-              res.render('strains/show', {strain: strain, strains: strains, user: user, dispensary_id: req.params.id, session: req.session});
+              res.render('strains/show', {
+                strain: strain, 
+                strains: strains, 
+                user: user, 
+                dispensary_id: req.params.id, 
+                session: req.session,
+                avgRating: avg
+              });
             }
           });
         }
