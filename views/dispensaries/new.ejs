@@ -4,18 +4,19 @@
   <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
     <h1 style="text-align: center;">Add New Dispensary</h1>
     <div class="well login-well">
+      <p>Fields with an asterisk are required.</p>
       <form action="/dispensaries" method="POST">
         <div class="form-group">
-          <input class="form-control" type="text" name="name" placeholder="Name" autocomplete="off">
+          <input class="form-control" type="text" name="name" placeholder="Name *" autocomplete="off" required>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="location" placeholder="Location">
+          <input class="form-control" type="text" name="location" placeholder="Location *" required>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="description" placeholder="Description">
+          <input class="form-control" type="text" name="description" placeholder="Description *" required>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="image" placeholder="Image URL">
+          <input class="form-control" type="text" name="image" placeholder="Image URL *" required>
         </div>
         <div class="form-group">
           <button class="btn btn-lg btn-primary btn-block">Add</button>

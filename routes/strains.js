@@ -27,7 +27,9 @@ router.post('/', middleware.isAdmin, (req, res) => {
         name: req.body.name,
         description: req.body.description,
         type: req.body.type,
-        image: req.body.image
+        image: req.body.image,
+        thcContent: req.body.thcContent,
+        cbdContent: req.body.cbdContent
       }, (err, strain) => {
         if(err) {
           console.log(err.message);
@@ -42,6 +44,7 @@ router.post('/', middleware.isAdmin, (req, res) => {
             strain.save();
           }
         });
+        strain.dispensary = dispensary;
         strain.save();
         dispensary.strains.push(strain._id);
         dispensary.save();
@@ -64,21 +67,27 @@ router.get('/:id', (req, res) => {
       }
       const avg = total / strain.reviews.length;
 
-      User.findById(req.session.userId, (err, user) => {
+      Dispensary.findById(strain.dispensary, (err, dispensary) => {
         if(err) {
           console.log(err);
         } else {
-          Strain.find({}, (err, strains) => {
+          User.findById(req.session.userId, (err, user) => {
             if(err) {
               console.log(err);
             } else {
-              res.render('strains/show', {
-                strain: strain, 
-                strains: strains, 
-                user: user, 
-                dispensary_id: req.params.id, 
-                session: req.session,
-                avgRating: avg
+              Strain.find({}, (err, strains) => {
+                if(err) {
+                  console.log(err);
+                } else {
+                  res.render('strains/show', {
+                    strain: strain, 
+                    strains: strains, 
+                    user: user, 
+                    dispensary: dispensary,
+                    session: req.session,
+                    avgRating: avg
+                  });
+                }
               });
             }
           });
@@ -105,7 +114,9 @@ router.put('/:id', middleware.checkStrainOwnership, (req, res) => {
     name: req.body.name,
     description: req.body.description,
     type: req.body.type,
-    image: req.body.image
+    image: req.body.image,
+    thcContent: req.body.thcContent,
+    cbdContent: req.body.cbdContent
   }, (err, strain) => {
     if(err) {
       console.log(err);

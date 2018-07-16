@@ -1,0 +1,29 @@
+.low-nav {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  align-items: center;
+  margin-top: -15px;
+}
+
+.low-nav__dispensary,
+.low-nav__strain {
+  margin-right: 10px;
+  text-decoration: none;
+  color: darkgrey;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.arrow {
+  text-decoration: none;
+  margin-right: 10px;
+  align-self: stretch;
+  color: darkgrey
+
+  &:hover {
+    color: black;
+  }
+}

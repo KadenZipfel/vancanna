@@ -15,7 +15,13 @@ const strainSchema = new mongoose.Schema({
   reviews: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Review'
-  }]
+  }],
+  dispensary: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Dispensary'
+  },
+  thcContent: Number,
+  cbdContent: Number
   // thcContent and cbdContent to be added
   // Fields such as flavours and effects to be added
   // avgRating should somehow be added

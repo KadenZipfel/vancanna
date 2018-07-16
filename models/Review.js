@@ -9,7 +9,9 @@ const reviewSchema = new mongoose.Schema({
       ref: 'User'
     },
     username: String
-  }
+  },
+  flavors: String,
+  effects: String
 });
 
 module.exports = mongoose.model('Review', reviewSchema);

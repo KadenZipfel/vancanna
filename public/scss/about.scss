@@ -1,0 +1,12 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: -70px;
+}
+
+.about__btn {
+  margin-top: 50px;
+}

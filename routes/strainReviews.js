@@ -25,7 +25,9 @@ router.post('/reviews', middleware.isLoggedIn, (req, res) => {
     } else {
       Review.create({
         text: req.body.text,
-        rating: req.body.rating
+        rating: req.body.rating,
+        flavors: req.body.flavors,
+        effects: req.body.effects
       }, (err, review) => {
         if(err) {
           console.log(err);
@@ -69,7 +71,9 @@ router.get('/reviews/:id/edit', middleware.checkReviewOwnership, (req, res) => {
 router.put('/reviews/:id', middleware.checkReviewOwnership, (req, res) => {
   Review.findByIdAndUpdate(req.params.id, {
     text: req.body.text,
-    rating: req.body.rating
+    rating: req.body.rating,
+    flavors: req.body.flavors,
+    effects: req.body.effects
   }, (err, review) => {
     if(err) {
       console.log(err);

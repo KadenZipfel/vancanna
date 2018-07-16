@@ -4,18 +4,25 @@
   <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
     <h1 style="text-align: center;">Add New Review for <%= strain.name %></h1>
     <div class="well login-well">
+      <p>Fields with an asterisk are required.</p>
       <form action="/dispensaries/<%= dispensary_id %>/strains/<%= strain._id %>/reviews" method="POST">
         <div class="form-group">
-          <input class="form-control" type="textarea" name="text" placeholder="Text" autocomplete="off">
+          <input class="form-control" type="textarea" name="text" placeholder="Text *" autocomplete="off" required>
         </div>
         <div class="form-group">
-          <select name="rating" class="form-control">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+          <select name="rating" class="form-control" required>
+            <option value="1">&#9733;</option>
+            <option value="2">&#9733; &#9733;</option>
+            <option value="3">&#9733; &#9733; &#9733;</option>
+            <option value="4">&#9733; &#9733; &#9733; &#9733;</option>
+            <option value="5">&#9733; &#9733; &#9733; &#9733; &#9733;</option>
           </select>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="flavors" placeholder="Flavors">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="effects" placeholder="Effects">
         </div>
         <div class="form-group">
           <button class="btn btn-lg btn-primary btn-block">Add</button>

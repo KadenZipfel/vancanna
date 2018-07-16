@@ -116,3 +116,38 @@ a:hover {
   width: 100%;
   height: 60px;
   color: white; }
+
+.about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: -70px; }
+
+.about__btn {
+  margin-top: 50px; }
+
+.low-nav {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  align-items: center;
+  margin-top: -15px; }
+
+.low-nav__dispensary,
+.low-nav__strain {
+  margin-right: 10px;
+  text-decoration: none;
+  color: darkgrey; }
+  .low-nav__dispensary:hover,
+  .low-nav__strain:hover {
+    color: black; }
+
+.arrow {
+  text-decoration: none;
+  margin-right: 10px;
+  align-self: stretch;
+  color: darkgrey .arrow; }
+  .arrow :hover {
+    color: black; }

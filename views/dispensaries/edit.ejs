@@ -5,18 +5,19 @@
   <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
     <h1 style="text-align: center;">Edit Dispensary: <%= dispensary.name %></h1>
     <div class="well login-well">
+      <p>Fields with an asterisk are required.</p>
       <form action="/dispensaries/<%= dispensary._id %>?_method=PUT" method="POST">
         <div class="form-group">
-          <input class="form-control" type="text" name="name" placeholder="Name" autocomplete="off" value="<%= dispensary.name %>">
+          <input class="form-control" type="text" name="name" placeholder="Name *" autocomplete="off" value="<%= dispensary.name %>" required>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="location" placeholder="Location" value="<%= dispensary.location %>">
+          <input class="form-control" type="text" name="location" placeholder="Location *" value="<%= dispensary.location %>" required>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="description" placeholder="Description" value="<%= dispensary.description %>">
+          <input class="form-control" type="text" name="description" placeholder="Description *" value="<%= dispensary.description %>" required>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="image" placeholder="Image URL" value="<%= dispensary.image %>">
+          <input class="form-control" type="text" name="image" placeholder="Image URL *" value="<%= dispensary.image %>" required>
         </div>
         <div class="form-group">
           <button class="btn btn-lg btn-primary btn-block">Add</button>

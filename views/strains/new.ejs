@@ -4,22 +4,29 @@
   <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
     <h1 style="text-align: center;">Add New Strain</h1>
     <div class="well login-well">
+      <p>Fields with an asterisk are required.</p>
       <form action="/dispensaries/<%= dispensary._id %>/strains" method="POST">
         <div class="form-group">
-          <input class="form-control" type="text" name="name" placeholder="Name" autocomplete="off">
+          <input class="form-control" type="text" name="name" placeholder="Name *" autocomplete="off" required>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="description" placeholder="description">
+          <input class="form-control" type="text" name="description" placeholder="Description *" required>
         </div>
         <div class="form-group">
-          <select name="type" class="form-control">
+          <select name="type" class="form-control" required>
             <option value="Indica">Indica</option>
             <option value="Sativa">Sativa</option>
             <option value="Hybrid">Hybrid</option>
           </select>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="image" placeholder="Image URL">
+          <input class="form-control" type="text" name="image" placeholder="Image URL *" required>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="thcContent" placeholder="% THC">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="cbdContent" placeholder="% CBD">
         </div>
         <div class="form-group">
           <button class="btn btn-lg btn-primary btn-block">Add</button>
