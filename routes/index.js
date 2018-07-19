@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
         if(err) {
           console.log(err);
         } else {
-          res.render('index', {dispensaries: dispensaries, strains: strains, session: req.session});
+          res.render('index', {dispensaries: dispensaries, strains: strains, user: req.user});
         }
       });
     }
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 
 // About Page
 router.get('/about', (req, res) => {
-  res.render('about', {session: req.session});
+  res.render('about', {user: req.user});
 });
 
 module.exports = router;

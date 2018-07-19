@@ -10,20 +10,14 @@ router.get('/', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      User.findById(req.session.userId, (err, user) => {
-        if(err) {
-          console.log(err);
-        } else {
-          res.render('dispensaries/index', {dispensaries: dispensaries, user: user, session: req.session});
-        }
-      });
+      res.render('dispensaries/index', {dispensaries: dispensaries, user: req.user});
     }
   });
 });
 
 // New dispensary page
 router.get('/new', middleware.isAdmin, (req, res) => {
-  res.render('dispensaries/new', {session: req.session});
+  res.render('dispensaries/new', {user: req.user});
 });
 
 // New dispensary logic
@@ -38,15 +32,9 @@ router.post('/', middleware.isAdmin, (req, res) => {
       console.log(err.message);
       return res.redirect('back');
     }
-    User.findById(req.session.userId, (err, user) => {
-      if(err) {
-        console.log(err);
-      } else {
-        dispensary.author.id = user._id;
-        dispensary.author.username = user.username;
-        dispensary.save();
-      }
-    });
+    dispensary.author.id = req.user._id;
+    dispensary.author.username = req.user.username;
+    dispensary.save();
     console.log('Dispensary added to db: ', dispensary);
     res.redirect('/dispensaries');
   });
@@ -65,20 +53,14 @@ router.get('/:id', (req, res) => {
       for(var i = 0; i < dispensary.reviews.length; i++) {
         total += dispensary.reviews[i].rating;
       }
-      const avg = total / dispensary.reviews.length;
+      const avgRating = total / dispensary.reviews.length;
+      dispensary.avgRating = avgRating;
+      dispensary.save();
 
-      User.findById(req.session.userId, (err, user) => {
-        if(err) {
-          console.log(err);
-        } else {
-          res.render('dispensaries/show', {
-            dispensary: dispensary, 
-            user: user,
-            strain_id: req.params.id,
-            session: req.session,
-            avgRating: avg
-          });
-        }
+      res.render('dispensaries/show', {
+        dispensary: dispensary, 
+        strain_id: req.params.id,
+        user: req.user
       });
     }
   });
@@ -90,7 +72,7 @@ router.get('/:id/edit', middleware.checkDispensaryOwnership, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaries/edit', {dispensary: dispensary, session: req.session});
+      res.render('dispensaries/edit', {dispensary: dispensary, user: req.user});
     }
   });
 });

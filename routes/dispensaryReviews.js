@@ -13,7 +13,7 @@ router.get('/reviews/new', middleware.isLoggedIn, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaryReviews/new', {dispensary: dispensary, session: req.session});
+      res.render('dispensaryReviews/new', {dispensary: dispensary, user: req.user});
     }
   });
 });
@@ -31,24 +31,18 @@ router.post('/reviews', middleware.isLoggedIn, (req, res) => {
         if(err) {
           console.log(err);
         } else {
-          User.findById(req.session.userId, (err, user) => {
-            if(err) {
-              console.log(err);
-            } else {
-              if(!user.points) {
-                user.points = 25;
-              } else {
-                user.points += 25;
-              }
-              user.save();
-              review.author.id = user._id;
-              review.author.username = user.username;
-              review.save();
-              dispensary.reviews.push(review._id);
-              dispensary.save();
-              res.redirect('/dispensaries/' + dispensary._id);
-            }
-          });
+          if(!req.user.points) {
+            req.user.points = 25;
+          } else {
+            req.user.points += 25;
+          }
+          req.user.save();
+          review.author.id = req.user._id;
+          review.author.username = req.user.username;
+          review.save();
+          dispensary.reviews.push(review._id);
+          dispensary.save();
+          res.redirect('/dispensaries/' + dispensary._id);
         }
       });
     }
@@ -61,7 +55,7 @@ router.get('/reviews/:id/edit', middleware.checkReviewOwnership, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('dispensaryReviews/edit', {dispensary_id: req.params.id, review: review, session: req.session});
+      res.render('dispensaryReviews/edit', {dispensary_id: req.params.id, review: review, user: req.user});
     }
   });
 });

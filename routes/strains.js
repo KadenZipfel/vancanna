@@ -11,7 +11,7 @@ router.get('/new', middleware.isAdmin, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strains/new', {dispensary: dispensary, session: req.session});
+      res.render('strains/new', {dispensary: dispensary, user: req.user});
     }
   });
 });
@@ -35,15 +35,9 @@ router.post('/', middleware.isAdmin, (req, res) => {
           console.log(err.message);
           return res.redirect('back');
         }
-        User.findById(req.session.userId, (err, user) => {
-          if(err) {
-            console.log(err);
-          } else {
-            strain.author.id = user._id;
-            strain.author.username = user.username;
-            strain.save();
-          }
-        });
+        strain.author.id = req.user._id;
+        strain.author.username = req.user.username;
+        strain.save();
         strain.dispensary = dispensary;
         strain.save();
         dispensary.strains.push(strain._id);
@@ -65,29 +59,23 @@ router.get('/:id', (req, res) => {
       for(var i = 0; i < strain.reviews.length; i++) {
         total += strain.reviews[i].rating;
       }
-      const avg = total / strain.reviews.length;
-
+      const avgRating = total / strain.reviews.length;
+      strain.avgRating = avgRating;
+      strain.save();
+      
       Dispensary.findById(strain.dispensary, (err, dispensary) => {
         if(err) {
           console.log(err);
         } else {
-          User.findById(req.session.userId, (err, user) => {
+          Strain.find({}, (err, strains) => {
             if(err) {
               console.log(err);
             } else {
-              Strain.find({}, (err, strains) => {
-                if(err) {
-                  console.log(err);
-                } else {
-                  res.render('strains/show', {
-                    strain: strain, 
-                    strains: strains, 
-                    user: user, 
-                    dispensary: dispensary,
-                    session: req.session,
-                    avgRating: avg
-                  });
-                }
+              res.render('strains/show', {
+                strain: strain, 
+                strains: strains,
+                dispensary: dispensary,
+                user: req.user
               });
             }
           });
@@ -103,7 +91,7 @@ router.get('/:id/edit', middleware.checkStrainOwnership, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strains/edit', {dispensary_id: req.params.id, strain: strain, session: req.session});
+      res.render('strains/edit', {dispensary_id: req.params.id, strain: strain, user: req.user});
     }
   });
 });

@@ -19,7 +19,8 @@ const dispensarySchema = new mongoose.Schema({
   reviews: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Review'
-  }]
+  }],
+  avgRating: Number
 });
 
 var Dispensary = mongoose.model('Dispensary', dispensarySchema);

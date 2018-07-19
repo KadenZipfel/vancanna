@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
 <div class="container dispensaries">
-  <h1 class="text-center dispensaries__header">Our Most Popular Dispensaries</h1>
+  <h1 class="text-center dispensaries__header">Vancouver's Most Popular Dispensaries</h1>
   <div class="dispensaries__cards">
     <% dispensaries.forEach((dispensary) => { %>
       <div class="col-md-3 col-sm-6">
@@ -16,7 +16,7 @@
       </div>
     <% }); %>
   </div>
-  <% if(session.userId && user.admin || session.userId && user.moderator == true) { %>
+  <% if(user && user.admin || user && user.moderator == true) { %>
     <a class="btn btn-default" href="dispensaries/new">Add a new dispensary</a>
   <% } %>
 </div>

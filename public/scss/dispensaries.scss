@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.dispensaries__cards {
+  min-height: 60vh;
+}
+
 .dispensaries__header {
   margin-bottom: 30px; 
 }
@@ -15,8 +19,3 @@
     color: #1c1c1c;
   }
 }
-
-// .dispensaries__img {
-//   height: 60%;
-//   display: block;
-// }

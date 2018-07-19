@@ -12,7 +12,7 @@ router.get('/reviews/new', middleware.isLoggedIn, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strainReviews/new', {dispensary_id: req.params.id, strain: strain, session: req.session});
+      res.render('strainReviews/new', {dispensary_id: req.params.id, strain: strain, user: req.user});
     }
   }); 
 });
@@ -32,24 +32,18 @@ router.post('/reviews', middleware.isLoggedIn, (req, res) => {
         if(err) {
           console.log(err);
         } else {
-          User.findById(req.session.userId, (err, user) => {
-            if(err) {
-              console.log(err);
-            } else {
-              if(!user.points) {
-                user.points = 10;
-              } else {
-                user.points += 10;
-              }
-              user.save();
-              review.author.id = user._id;
-              review.author.username = user.username;
-              review.save();
-              strain.reviews.push(review._id);
-              strain.save();
-              res.redirect('back');
-            }
-          });
+          if(!req.user.points) {
+            req.user.points = 10;
+          } else {
+            req.user.points += 10;
+          }
+          req.user.save();
+          review.author.id = req.user._id;
+          review.author.username = req.user.username;
+          review.save();
+          strain.reviews.push(review._id);
+          strain.save();
+          res.redirect('back');
         }
       });
     }
@@ -62,7 +56,7 @@ router.get('/reviews/:id/edit', middleware.checkReviewOwnership, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strainReviews/edit', {dispensary_id: req.params.id, strain_id: req.params.id, review: review, session: req.session});
+      res.render('strainReviews/edit', {dispensary_id: req.params.id, strain_id: req.params.id, review: review, user: req.user});
     }
   });
 });

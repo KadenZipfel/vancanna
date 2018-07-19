@@ -21,10 +21,9 @@ const strainSchema = new mongoose.Schema({
     ref: 'Dispensary'
   },
   thcContent: Number,
-  cbdContent: Number
-  // thcContent and cbdContent to be added
-  // Fields such as flavours and effects to be added
-  // avgRating should somehow be added
+  cbdContent: Number,
+  avgRating: Number
+  // Consider adding flavors and effects
 });
 
 module.exports = mongoose.model("Strain", strainSchema);

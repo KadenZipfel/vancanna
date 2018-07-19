@@ -7,6 +7,9 @@ const MongoClient    = require('mongodb').MongoClient;
 const assert         = require('assert');
 const session        = require('express-session');
 const MongoStore     = require('connect-mongo')(session);
+const passport       = require('passport');
+const LocalStrategy  = require('passport-local');
+const User           = require('./models/User');
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,14 +22,18 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
-app.use(session({
-  secret: 'smoke weed',
-  resave: true,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: db
-  })
+
+// Passport Config
+app.use(require('express-session')({
+  secret: 'shhh its a secret',
+  resave: false,
+  saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');

@@ -1,14 +1,14 @@
 <% include ../partials/header %>
 
 <div class="container">
-  <h1><%= user.username %></h1>
-  <p>Review points: <%= user.points %></p>
+  <h1 class="text-center"><%= user.username %></h1>
+  <p class="text-center">RP: <%= (user.points) ? user.points : 0 %></p>
   <% if(user.admin == true) { %>
-    <p>Admin</p>
+    <p class="text-center">Admin</p>
   <% } %>
   <% if(user.moderator == true) { %>
-    <p>Moderator</p>
+    <p class="text-center">Moderator</p>
   <% } %>
-</div>
+</div> 
 
 <% include ../partials/footer %>

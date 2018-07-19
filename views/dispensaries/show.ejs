@@ -8,8 +8,12 @@
         <h1 class="text-center"><%= dispensary.name %></h1>
         <p class="dispensary__location text-center"><%= dispensary.location %></p>
         <p class="dispensary__description text-center"><%= dispensary.description %></p>
-        <p class="text-center"><%= avgRating %> &#9733;</p>
-        <% if(dispensary.author.id.equals(session.userId) || session.userId && user.moderator == true) { %>
+        <p class="text-center">
+          <% if(dispensary.avgRating) { %>
+            <p class="text-center"><%= dispensary.avgRating %> &#9733;</p>
+          <% } %>
+        </p>
+        <% if(user && dispensary.author.id.equals(user._id) || user && user.moderator == true) { %>
           <div class="inline">
             <a class="btn btn-default" href="/dispensaries/<%= dispensary._id %>/edit">Edit Dispensary</a>
             <form action="/dispensaries/<%= dispensary._id %>?_method=DELETE" method="POST"><button>Delete Dispensary</button></form>
@@ -25,10 +29,14 @@
     <hr>
     <% dispensary.reviews.forEach((review) => { %>
       <div class="review">
+        <p class="review__rating pull-right">
+          <% for(i = 0; i < review.rating; i++) { %> 
+            &#9733;
+          <% } %>
+        </p>
         <h4 class="review__author"><%= review.author.username %></h4>
-        <p class="review__rating pull-right"><%= review.rating %> &#9733;</p>
         <p class="review__text"><%= review.text %></p>
-        <% if(review.author.id.equals(session.userId) || session.userId && user.moderator == true) { %>
+        <% if(user && review.author.id.equals(user._id) || user && user.moderator == true) { %>
           <div class="inline">
             <a class="btn btn-default" href="<%= dispensary._id %>/reviews/<%= review._id %>/edit">Edit Review</a>
             <form action="/dispensaries/<%= dispensary._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST"><button>Delete Review</button></form>
@@ -50,7 +58,7 @@
           </div>
         <% }) %>
       </div>
-      <% if(session.userId && user.admin || session.userId && user.moderator == true) { %>
+      <% if(user && user.admin || user && user.moderator == true) { %>
         <a class="text-center btn btn-default strains__btn" href="/dispensaries/<%= dispensary._id %>/strains/new">Add a new strain</a>
       <% } %>
     </div>

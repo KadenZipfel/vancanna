@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -15,8 +15,7 @@ const userSchema = new mongoose.Schema({
     trim: true
   },
   password: {
-    type: String,
-    required: true
+    type: String
   },
   points: {
     type: Number
@@ -31,36 +30,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save', function (next) {
-  var user = this;
-  bcrypt.hash(user.password, 10, function (err, hash){
-    if (err) {
-      return next(err);
-    }
-    user.password = hash;
-    next();
-  });
-});
-
-userSchema.statics.authenticate = (username, password, callback) => {
-  User.findOne({username: username})
-    .exec((err, user) => {
-      if(err) {
-        return callback(err)
-      } else if(!user) {
-        var err = new Error('User not found.');
-        err.status = 401;
-        return callback(err);
-      }
-      bcrypt.compare(password, user.password, (err, result) => {
-        if(result === true) {
-          return callback(null, user);
-        } else {
-          return callback();
-        }
-      })
-    });
-}
+userSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model('User', userSchema);
 module.exports = User;

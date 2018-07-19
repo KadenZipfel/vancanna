@@ -12,8 +12,8 @@
       <h2 class="text-center"><%= strain.name %></h2>
       <p class="text-center"><%= strain.type %></p>
       <p class="text-center"><%= strain.description %></p>
-      <% if(avgRating) { %>
-        <p class="text-center"><%= avgRating %> &#9733;</p>
+      <% if(strain.avgRating) { %>
+        <p class="text-center"><%= strain.avgRating %> &#9733;</p>
       <% } %>
       <% if(strain.thcContent) { %>
         <p><%= strain.thcContent %>% THC</p>
@@ -21,7 +21,7 @@
       <% if(strain.cbdContent) { %>
         <p><%= strain.cbdContent %>% CBD</p>
       <% } %>
-      <% if(strain.author.id.equals(session.userId) || session.userId && user.moderator == true) { %>
+      <% if(user && strain.author.id.equals(user._id) || user && user.moderator == true) { %>
         <div class="inline">
           <a href="<%= strain._id %>/edit">Edit Strain</a>
           <form action="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>?_method=DELETE" method="POST"><button>Delete Strain</button></form>
@@ -36,16 +36,20 @@
     <hr>
     <% strain.reviews.forEach((review) => { %>
       <div class="review">
+        <p class="review__rating pull-right">
+          <% for(i = 0; i < review.rating; i++) { %> 
+            &#9733;
+          <% } %>
+        </p>
         <h4 class="review__author"><%= review.author.username %></h4>
-        <p class="review__rating pull-right"><%= review.rating %> &#9733;</p>
         <p class="review__text"><%= review.text %></p>
         <% if(review.flavors) { %>
-          <p><strong>Flavors:</strong> <%= review.flavors %></p>
+          <p class="pull-right"><strong>Flavors:</strong> <%= review.flavors %></p>
         <% } %>
         <% if(review.effects) { %>
           <p><strong>Effects:</strong> <%= review.effects %></p>
         <% } %>
-        <% if(review.author.id.equals(session.userId) || session.userId && user.moderator == true) { %>
+        <% if(user && review.author.id.equals(user._id) || user && user.moderator == true) { %>
           <div class="inline">
             <a href="<%= strain._id %>/reviews/<%= review._id %>/edit">Edit Review</a>
             <form action="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST"><button>Delete Review</button></form>
@@ -56,7 +60,7 @@
   </div>
   <div class="col-md-8">
     <div class="strains">
-        <h3 class="text-center strains__header">Other Strains From [Dispensary Name]...</h3>
+        <h3 class="text-center strains__header">Other Strains From <%= dispensary.name %></h3>
         <div class="strains__cards">
           <% strains.forEach((strain) => { %>
             <div class="col-md-6">
@@ -67,7 +71,7 @@
             </div>
           <% }) %>
         </div>
-        <% if(session.userId && user.admin || session.userId && user.moderator == true) { %>
+        <% if(user && user.admin || user && user.moderator == true) { %>
           <a class="text-center btn btn-default strains__btn" href="/dispensaries/<%= dispensary._id %>/strains/new">Add a new strain</a>
         <% } %>
       </div>
