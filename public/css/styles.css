@@ -3,7 +3,9 @@ body {
   font-family: Arial; }
 
 h1 {
-  font-family: 'Bebas Neue'; }
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-weight: 200; }
 
 a:hover {
   text-decoration: none; }
@@ -13,7 +15,9 @@ a:hover {
   box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1); }
 
 #brand {
-  font-family: Bebas Neue;
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-weight: 200;
   font-size: 25px; }
 
 .thumbnail {
@@ -25,7 +29,9 @@ a:hover {
     filter: blur(5px);
     transition: filter 0.3s; }
   .thumbnail h3 {
-    font-family: Bebas Neue;
+    font-family: 'Oswald';
+    text-transform: uppercase;
+    font-weight: 200;
     font-size: 35px;
     background-color: rgba(0, 0, 0, 0.5); }
 
@@ -142,7 +148,7 @@ a:hover {
 .about {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin-top: -70px; }
@@ -173,21 +179,3 @@ a:hover {
   color: darkgrey .arrow; }
   .arrow :hover {
     color: black; }
-
-@font-face {
-  font-family: 'Bebas Neue';
-  font-style: normal;
-  font-weight: bold;
-  src: url("fonts/bebasneue_bold-webfont.woff") format("woff"), url("fonts/bebasneue_bold-webfont.woff2") format("woff2"), url("fonts/BebasNeue Bold.otf") format("otf"); }
-
-@font-face {
-  font-family: 'Bebas Neue';
-  font-style: normal;
-  font-weight: normal;
-  src: url("fonts/bebasneue_regular-webfont.woff") format("woff"), url("fonts/bebasneue_regular-webfont.woff2") format("woff2"), url("fonts/BebasNeue Regular.otf") format("otf"); }
-
-@font-face {
-  font-family: 'Bebas Neue';
-  font-style: normal;
-  font-weight: lighter;
-  src: url("fonts/bebasneue_light-webfont.woff") format("woff"), url("fonts/bebasneue_light-webfont.woff2") format("woff2"), url("fonts/BebasNeue Light.otf") format("otf"); }

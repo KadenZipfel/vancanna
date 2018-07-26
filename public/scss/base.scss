@@ -4,7 +4,9 @@ body {
 }
 
 h1 {
-  font-family: 'Bebas Neue';
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-weight: 200;
 }
 
 a:hover {
@@ -17,7 +19,9 @@ a:hover {
 }
 
 #brand {
-  font-family: Bebas Neue;
+  font-family: 'Oswald';
+  text-transform: uppercase;
+  font-weight: 200;
   font-size: 25px;
 }
 
@@ -33,7 +37,9 @@ a:hover {
   }
 
   & h3 {
-    font-family: Bebas Neue;
+    font-family: 'Oswald';
+    text-transform: uppercase;
+    font-weight: 200; 
     font-size: 35px;
     background-color: rgba(0, 0, 0, 0.5);
   }

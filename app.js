@@ -13,8 +13,8 @@ const User           = require('./models/User');
 
 const PORT = process.env.PORT || 3000;
 
-// mongoose.connect('mongodb://localhost/vancanna-test');
-mongoose.connect('mongodb://vancanna:password123@ds153775.mlab.com:53775/vancanna');
+mongoose.connect('mongodb://localhost/vancanna-test');
+// mongoose.connect('mongodb://vancanna:password123@ds153775.mlab.com:53775/vancanna');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
