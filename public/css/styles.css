@@ -142,7 +142,7 @@ a:hover {
 .about {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   min-height: 100vh;
   margin-top: -70px; }
@@ -178,16 +178,16 @@ a:hover {
   font-family: 'Bebas Neue';
   font-style: normal;
   font-weight: bold;
-  src: url("fonts/bebasneue_bold-webfont.woff") format("woff"), url("fonts/bebasneue_bold-webfont.woff2") format("woff2"); }
+  src: url("fonts/bebasneue_bold-webfont.woff") format("woff"), url("fonts/bebasneue_bold-webfont.woff2") format("woff2"), url("fonts/BebasNeue Bold.otf") format("otf"); }
 
 @font-face {
   font-family: 'Bebas Neue';
   font-style: normal;
   font-weight: normal;
-  src: url("fonts/bebasneue_regular-webfont.woff") format("woff"), url("fonts/bebasneue_regular-webfont.woff2") format("woff2"); }
+  src: url("fonts/bebasneue_regular-webfont.woff") format("woff"), url("fonts/bebasneue_regular-webfont.woff2") format("woff2"), url("fonts/BebasNeue Regular.otf") format("otf"); }
 
 @font-face {
   font-family: 'Bebas Neue';
   font-style: normal;
   font-weight: lighter;
-  src: url("fonts/bebasneue_light-webfont.woff") format("woff"), url("fonts/bebasneue_light-webfont.woff2") format("woff2"); }
+  src: url("fonts/bebasneue_light-webfont.woff") format("woff"), url("fonts/bebasneue_light-webfont.woff2") format("woff2"), url("fonts/BebasNeue Light.otf") format("otf"); }
