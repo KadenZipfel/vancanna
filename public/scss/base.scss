@@ -52,7 +52,7 @@ a:hover {
 
 .thumbnail h3 {
   position: absolute;
-  top: 40%;
+  top: 37%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -66,4 +66,18 @@ a:hover {
 .inline {
   display: flex;
   margin: 10px;
+}
+
+#title {
+  font-size: 75px;
+  margin-top: -8px;
+
+  @media(max-width: 800px) {
+    font-size: 65px;
+  }
+}
+
+#title-btn {
+  margin-top: 10px;
+  margin-bottom: -15px;
 }

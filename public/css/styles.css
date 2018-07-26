@@ -41,7 +41,7 @@ a:hover {
 
 .thumbnail h3 {
   position: absolute;
-  top: 40%;
+  top: 37%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -52,6 +52,17 @@ a:hover {
 .inline {
   display: flex;
   margin: 10px; }
+
+#title {
+  font-size: 75px;
+  margin-top: -8px; }
+  @media (max-width: 800px) {
+    #title {
+      font-size: 65px; } }
+
+#title-btn {
+  margin-top: 10px;
+  margin-bottom: -15px; }
 
 .dispensaries {
   display: flex;
@@ -148,13 +159,11 @@ a:hover {
 .about {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  margin-top: -70px; }
+  margin-top: 40px; }
 
 .about__btn {
-  margin-top: 50px; }
+  margin-top: 30px; }
 
 .low-nav {
   display: flex;
