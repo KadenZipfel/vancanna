@@ -43,7 +43,7 @@ router.post('/', middleware.isAdmin, (req, res) => {
         dispensary.strains.push(strain._id);
         dispensary.save();
         console.log('Strain added to db: ', strain);
-        res.redirect('back');
+        res.redirect('/dispensaries/' + dispensary._id + '/strains/' + strain._id);
       });
     }
   });
@@ -98,20 +98,26 @@ router.get('/:id/edit', middleware.checkStrainOwnership, (req, res) => {
 
 // Strain edit logic
 router.put('/:id', middleware.checkStrainOwnership, (req, res) => {
-  Strain.findByIdAndUpdate(req.params.id, {
-    name: req.body.name,
-    description: req.body.description,
-    type: req.body.type,
-    image: req.body.image,
-    thcContent: req.body.thcContent,
-    cbdContent: req.body.cbdContent
-  }, (err, strain) => {
+  Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);
     } else {
-      console.log('Strain updated: ', strain);
-      // Redirect somewhere better later
-      res.redirect('back');
+      Strain.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        description: req.body.description,
+        type: req.body.type,
+        image: req.body.image,
+        thcContent: req.body.thcContent,
+        cbdContent: req.body.cbdContent
+      }, (err, strain) => {
+        if(err) {
+          console.log(err);
+        } else {
+          console.log('Strain updated: ', strain);
+          // Redirect somewhere better later
+          res.redirect('/dispensaries/' + dispensary + '/strains/' + strain._id);
+        }
+      });
     }
   });
 });

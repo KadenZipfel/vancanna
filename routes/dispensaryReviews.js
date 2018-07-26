@@ -69,8 +69,13 @@ router.put('/reviews/:id', middleware.checkReviewOwnership, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      console.log('Review updated: ', review);
-      res.redirect('back');
+      Dispensary.findById(req.params.id, (err, dispensary) => {
+        if(err) {
+          console.log(err);
+        } else {
+          res.redirect('/dispensaries/');
+        }
+      });
     }
   });
 });

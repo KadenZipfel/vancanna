@@ -9,7 +9,7 @@
   <h1 class="text-center">Top Dispensaries</h1>
   <hr>
   <% dispensaries.forEach((dispensary) => { %>
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-6">
       <div class="thumbnail">
         <a href="dispensaries/<%= dispensary._id %>">
           <img class="dispensaries__img" src="<%= dispensary.image %>" alt="<%= dispensary.name %>">

@@ -4,7 +4,7 @@ body {
 }
 
 h1 {
-  font-family: Bebas Neue;
+  font-family: 'Bebas Neue';
 }
 
 a:hover {
@@ -29,6 +29,7 @@ a:hover {
 
   &:hover img{
     filter: blur(5px);
+    transition: filter 0.3s;
   }
 
   & h3 {

@@ -6,10 +6,10 @@
     <% dispensaries.forEach((dispensary) => { %>
       <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
-          <a href="dispensaries/<%= dispensary._id %>">
+          <a href="/dispensaries/<%= dispensary._id %>">
             <img class="dispensaries__img" src="<%= dispensary.image %>" alt="<%= dispensary.name %>">
           </a>
-          <a href="dispensaries/<%= dispensary._id %>">
+          <a href="/dispensaries/<%= dispensary._id %>">
             <h3 class="text-center dispensaries__name"><%= dispensary.name %></h3>
           </a>
         </div>

@@ -43,7 +43,7 @@ router.post('/reviews', middleware.isLoggedIn, (req, res) => {
           review.save();
           strain.reviews.push(review._id);
           strain.save();
-          res.redirect('back');
+          res.redirect('/dispensaries');
         }
       });
     }
@@ -73,7 +73,7 @@ router.put('/reviews/:id', middleware.checkReviewOwnership, (req, res) => {
       console.log(err);
     } else {
       console.log('Review updated: ', review);
-      res.redirect('back');
+      res.redirect('/dispensaries');
     }
   });
 });

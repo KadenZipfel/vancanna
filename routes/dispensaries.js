@@ -36,7 +36,7 @@ router.post('/', middleware.isAdmin, (req, res) => {
     dispensary.author.username = req.user.username;
     dispensary.save();
     console.log('Dispensary added to db: ', dispensary);
-    res.redirect('/dispensaries');
+    res.redirect('/dispensaries/' + dispensary._id);
   });
 });
 
@@ -89,7 +89,7 @@ router.put('/:id', middleware.checkDispensaryOwnership, (req, res) => {
       console.log(err);
       res.redirect('/dispensaries');
     } else {
-      res.redirect('/dispensaries/' + req.params.id);
+      res.redirect('/dispensaries/' + dispensary._id);
     }
   });
 });

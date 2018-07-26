@@ -3,7 +3,7 @@ body {
   font-family: Arial; }
 
 h1 {
-  font-family: Bebas Neue; }
+  font-family: 'Bebas Neue'; }
 
 a:hover {
   text-decoration: none; }
@@ -22,7 +22,8 @@ a:hover {
   overflow: hidden;
   position: relative; }
   .thumbnail:hover img {
-    filter: blur(5px); }
+    filter: blur(5px);
+    transition: filter 0.3s; }
   .thumbnail h3 {
     font-family: Bebas Neue;
     font-size: 35px;
@@ -73,7 +74,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px; }
+  padding: 10px;
+  width: 100%; }
 
 .dispensary__img {
   max-height: 40vh;
@@ -126,7 +128,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px; }
+  padding: 10px;
+  width: 100%; }
 
 .footer {
   background-color: darkslategrey;
@@ -170,3 +173,21 @@ a:hover {
   color: darkgrey .arrow; }
   .arrow :hover {
     color: black; }
+
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: bold;
+  src: url("fonts/bebasneue_bold-webfont.woff") format("woff"), url("fonts/bebasneue_bold-webfont.woff2") format("woff2"); }
+
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/bebasneue_regular-webfont.woff") format("woff"), url("fonts/bebasneue_regular-webfont.woff2") format("woff2"); }
+
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: lighter;
+  src: url("fonts/bebasneue_light-webfont.woff") format("woff"), url("fonts/bebasneue_light-webfont.woff2") format("woff2"); }
