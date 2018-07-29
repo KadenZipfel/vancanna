@@ -85,6 +85,27 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// Fav strain logic
+router.get('/:id/fav', middleware.isLoggedIn, (req, res) => {
+  Strain.findById(req.params.id, (err, strain) => {
+    if(err) {
+      console.log(err);
+    } else {
+      if(req.user) {
+        if(req.user.favStrains.indexOf(strain._id) == -1){
+          req.user.favStrains.push(strain._id);
+          req.user.save();
+        } else {
+          const index = req.user.favStrains.indexOf(strain._id);
+          req.user.favStrains.splice(index, 1);
+          req.user.save();
+        }
+      }
+      res.redirect('back');
+    }
+  });
+});
+
 // Strain edit page
 router.get('/:id/edit', middleware.checkStrainOwnership, (req, res) => {
   Strain.findById(req.params.id, (err, strain) => {

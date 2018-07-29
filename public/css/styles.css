@@ -53,6 +53,12 @@ a:hover {
   display: flex;
   margin: 10px; }
 
+.like {
+  color: black;
+  font-size: 40px; }
+  .like:hover {
+    color: black; }
+
 #title {
   font-size: 75px;
   margin-top: -8px; }
@@ -163,7 +169,8 @@ a:hover {
   margin-top: 40px; }
 
 .about__btn {
-  margin-top: 30px; }
+  margin-top: 30px;
+  margin-bottom: 30px; }
 
 .low-nav {
   display: flex;

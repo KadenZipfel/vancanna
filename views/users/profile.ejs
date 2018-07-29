@@ -9,6 +9,42 @@
   <% if(user.moderator == true) { %>
     <p class="text-center">Moderator</p>
   <% } %>
+  <% if(user.favDispensaries) { %>
+    <div class="col-md-12">
+      <h1 class="text-center">Favorite Dispensaries</h1>
+      <hr>
+      <% user.favDispensaries.forEach((dispensary) => { %>
+        <div class="col-md-3 col-sm-6">
+          <div class="thumbnail">
+            <a href="/dispensaries/<%= dispensary._id %>">
+              <img class="dispensaries__img" src="<%= dispensary.image %>" alt="<%= dispensary.name %>">
+            </a>
+            <a href="/dispensaries/<%= dispensary._id %>">
+              <h3 class="text-center dispensaries__name"><%= dispensary.name %></h3>
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+  <% if(user.favStrains) { %>
+    <div class="col-md-12">
+      <h1 class="text-center">Favorite Strains</h1>
+      <hr>
+      <% user.favStrains.forEach((strain) => { %>
+        <div class="col-md-3 col-sm-6">
+          <div class="thumbnail">
+            <a href="/dispensaries/<%= strain.dispensary._id %>/strains/<%= strain._id %>">
+              <img class="strains__img" src="<%= strain.image %>" alt="<%= strain.name %>">
+            </a>
+            <a href="/dispensaries/<%= strain.dispensary._id %>/strains/<%= strain._id %>">
+              <h3 class="text-center strains__name"><%= strain.name %></h3>
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
 </div> 
 
 <% include ../partials/footer %>

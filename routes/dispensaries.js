@@ -66,6 +66,27 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// Fav dispensary logic
+router.get('/:id/fav', middleware.isLoggedIn, (req, res) => {
+  Dispensary.findById(req.params.id, (err, dispensary) => {
+    if(err) {
+      console.log(err);
+    } else {
+      if(req.user) {
+        if(req.user.favDispensaries.indexOf(dispensary._id) == -1){
+          req.user.favDispensaries.push(dispensary._id);
+          req.user.save();
+        } else {
+          const index = req.user.favDispensaries.indexOf(dispensary._id);
+          req.user.favDispensaries.splice(index, 1);
+          req.user.save();
+        }
+      }
+      res.redirect('back');
+    }
+  });
+});
+
 // Edit dispensary page
 router.get('/:id/edit', middleware.checkDispensaryOwnership, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {

@@ -68,6 +68,15 @@ a:hover {
   margin: 10px;
 }
 
+.like {
+  color: black;
+  font-size: 40px;
+
+  &:hover {
+    color: black;
+  }
+}
+
 #title {
   font-size: 75px;
   margin-top: -8px;

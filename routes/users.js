@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Dispensary = require('../models/Dispensary');
 const middleware = require('../middleware');
 const passport       = require('passport');
 const LocalStrategy  = require('passport-local');
@@ -48,13 +49,16 @@ router.post('/signup', (req, res) => {
 
 // Profile Page
 router.get('/profile', middleware.isLoggedIn, (req, res) => {
-  User.findById(req.session.userId, (err, user) => {
-    if(err) {
-      console.log(err);
-    } else {
-      res.render('users/profile', {user: user, user: req.user});
-    }
-  });
+  User.findById(req.user._id)
+    .populate('favDispensaries')
+    .populate('favStrains')
+    .exec((err, user) => {
+      if(err) {
+        console.log(err);
+      } else {
+        res.render('users/profile', {user: user});
+      }
+    });
 });
 
 // ADMIN ROUTES

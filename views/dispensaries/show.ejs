@@ -13,6 +13,13 @@
             <p class="text-center"><%= dispensary.avgRating %> &#9733;</p>
           <% } %>
         </p>
+        <% if(user) { %>
+          <% if(user.favDispensaries.indexOf(dispensary._id) == -1) { %>
+            <a class="like text-center" href="/dispensaries/<%= dispensary._id %>/fav">&#9825</a>
+          <% } else { %>
+            <a class="like text-center" href="/dispensaries/<%= dispensary._id %>/fav">&#9829</a>
+          <% } %>
+        <% } %>
         <% if(user && dispensary.author.id.equals(user._id) || user && user.moderator == true) { %>
           <div class="inline">
             <a class="btn btn-default" href="/dispensaries/<%= dispensary._id %>/edit">Edit Dispensary</a>

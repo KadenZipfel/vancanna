@@ -27,7 +27,15 @@ const userSchema = new mongoose.Schema({
   moderator: {
     type: Boolean,
     default: false
-  }
+  },
+  favStrains: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Strain'
+  }], 
+  favDispensaries: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Dispensary'
+  }]
 });
 
 userSchema.plugin(passportLocalMongoose);

@@ -15,6 +15,13 @@
       <% if(strain.avgRating) { %>
         <p class="text-center"><%= strain.avgRating %> &#9733;</p>
       <% } %>
+      <% if(user) { %>
+        <% if(user.favStrains.indexOf(strain._id) == -1) { %>
+          <a class="like text-center" href="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>/fav">&#9825</a>
+        <% } else { %>
+          <a class="like text-center" href="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>/fav">&#9829</a>
+        <% } %>
+      <% } %>
       <% if(strain.thcContent) { %>
         <p><%= strain.thcContent %>% THC</p>
       <% } %>
