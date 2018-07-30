@@ -26,4 +26,15 @@ router.get('/about', (req, res) => {
   res.render('about', {user: req.user});
 });
 
+// Strains index
+router.get('/strains', (req, res) => {
+  Strain.find({}, (err, strains) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('strains/index', {strains: strains, user: req.user});
+    }
+  });
+});
+
 module.exports = router;

@@ -6,21 +6,40 @@
     <h3>Home of the best dispensaries and strains in Vancouver</h3>
     <a href="/about" class="btn btn-default" id="title-btn">Learn More</a>
   </div>
-  <h1 class="text-center">Top Dispensaries</h1>
-  <hr>
-  <% dispensaries.forEach((dispensary) => { %>
-    <div class="col-md-3 col-sm-6">
-      <div class="thumbnail">
-        <a href="dispensaries/<%= dispensary._id %>">
-          <img class="dispensaries__img" src="<%= dispensary.image %>" alt="<%= dispensary.name %>">
-        </a>
-        <a href="dispensaries/<%= dispensary._id %>">
-          <h3 class="text-center dispensaries__name"><%= dispensary.name %></h3>
-        </a>
+  <div class="col-md-12">
+    <h1 class="text-center">Top Dispensaries</h1>
+    <hr>
+    <% dispensaries.forEach((dispensary) => { %>
+      <div class="col-md-3 col-sm-6">
+        <div class="thumbnail">
+          <a href="dispensaries/<%= dispensary._id %>">
+            <img class="dispensaries__img" src="<%= dispensary.image %>" alt="<%= dispensary.name %>">
+          </a>
+          <a href="dispensaries/<%= dispensary._id %>">
+            <h3 class="text-center dispensaries__name"><%= dispensary.name %></h3>
+          </a>
+        </div>
       </div>
-    </div>
-  <% }); %>
-  <a class="btn btn-default pull-right" href="/dispensaries">View all dispensaries</a>
+    <% }); %>
+    <a class="btn btn-default pull-right" href="/dispensaries">View all dispensaries</a>
+  </div>
+  <div class="col-md-12">
+    <h1 class="text-center">Top Strains</h1>
+    <hr>
+    <% strains.forEach((strain) => { %>
+      <div class="col-md-3 col-sm-6">
+        <div class="thumbnail">
+          <a href="dispensaries/<%= strain.dispensary %>/strains/<%= strain._id %>">
+            <img class="strains__img" src="<%= strain.image %>" alt="<%= strain.name %>">
+          </a>
+          <a href="dispensaries/<%= strain.dispensary %>/strains/<%= strain._id %>">
+            <h3 class="text-center strains__name"><%= strain.name %></h3>
+          </a>
+        </div>
+      </div>
+    <% }); %>
+    <a class="btn btn-default pull-right" href="/strains">View all strains</a>
+  </div>
 </div>
 
 <% include partials/footer %>
