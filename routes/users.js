@@ -5,6 +5,7 @@ const Dispensary = require('../models/Dispensary');
 const middleware = require('../middleware');
 const passport       = require('passport');
 const LocalStrategy  = require('passport-local');
+const passportSetup = require('../config/google-passport-setup');
 
 // Login page
 router.get('/login', (req, res) => {
@@ -16,6 +17,16 @@ router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login'
   }), (req, res) => {
+});
+
+// Google login
+router.get('/login/google', passport.authenticate('google', {
+  scope: ['profile', 'email']
+}));
+
+// Google login redirect
+router.get('/login/google/redirect', passport.authenticate('google'), (req, res) => {
+  res.redirect('/');
 });
 
 // Logout logic
@@ -71,7 +82,7 @@ router.get('/admin', middleware.isLoggedIn, (req, res) => {
 
 // Admin Logic
 router.post('/admin', middleware.isLoggedIn, (req, res) => {
-  // Move secret later
+  // This will be hidden when the application is live
   if(req.body.secret == 'high') {
     req.user.admin = true;
     req.user.save();
@@ -93,7 +104,7 @@ router.get('/moderator', middleware.isLoggedIn, (req, res) => {
 
 // Moderator Logic
 router.post('/moderator', middleware.isLoggedIn, (req, res) => {
-  // Move secret later
+  // This will be hidden when the application is live
   if(req.body.secret == 'highmod') {
     req.user.moderator = true;
     req.user.save();

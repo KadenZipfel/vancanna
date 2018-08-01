@@ -14,6 +14,7 @@ const User           = require('./models/User');
 const PORT = process.env.PORT || 3000;
 
 mongoose.connect('mongodb://localhost/vancanna-test');
+// This will be hidden when the application is live
 // mongoose.connect('mongodb://vancanna:password123@ds153775.mlab.com:53775/vancanna');
 
 const db = mongoose.connection;
@@ -25,10 +26,12 @@ app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 
 // Passport Config
+// This will be hidden once the application is live
 app.use(require('express-session')({
   secret: 'shhh its a secret',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  maxAge: 365 * 24 * 60 * 60 * 1000
 }));
 app.use(passport.initialize());
 app.use(passport.session());

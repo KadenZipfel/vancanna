@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true,
     trim: true
   },
   username: {
@@ -35,7 +34,10 @@ const userSchema = new mongoose.Schema({
   favDispensaries: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Dispensary'
-  }]
+  }],
+  googleId: {
+    type: String
+  }
 });
 
 userSchema.plugin(passportLocalMongoose);
