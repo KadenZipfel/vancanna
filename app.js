@@ -14,8 +14,7 @@ const keys           = require('./config/keys');
 
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost/vancanna-test');
-mongoose.connect(keys.mongoose.mlab);
+mongoose.connect('mongodb://localhost/vancanna-test') || mongoose.connect(keys.mongoose.mlab);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -26,7 +25,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 
 // Passport Config
-// This will be hidden once the application is live
 app.use(require('express-session')({
   secret: keys.session.secret,
   resave: false,
