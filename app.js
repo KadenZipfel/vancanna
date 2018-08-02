@@ -14,7 +14,8 @@ const keys           = require('./config/keys');
 
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost/vancanna-test') || mongoose.connect(keys.mongoose.mlab);
+// mongoose.connect('mongodb://localhost/vancanna-test');
+mongoose.connect(keys.mongoose.mlab);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
