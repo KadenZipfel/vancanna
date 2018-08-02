@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const User = require('../models/User');
 const {ObjectId} = require('mongodb');
+const keys = require('./keys');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -14,9 +15,8 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(new GoogleStrategy({
-  // This will be hidden before the application is live
-  clientID: '763989485378-61scgu4a49pq627kfgd2pvevk6eru616.apps.googleusercontent.com',
-  clientSecret: 'U42120mFU_MJ1CxrLlyV13ec',
+  clientID: keys.google.clientID,
+  clientSecret: keys.google.clientSecret,
   callbackURL: '/login/google/redirect'
 }, (accessToken, refreshToken, profile, done) => {
   // Check if user exists

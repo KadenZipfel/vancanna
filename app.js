@@ -10,12 +10,12 @@ const MongoStore     = require('connect-mongo')(session);
 const passport       = require('passport');
 const LocalStrategy  = require('passport-local');
 const User           = require('./models/User');
+const keys           = require('./config/keys');
 
 const PORT = process.env.PORT || 3000;
 
 mongoose.connect('mongodb://localhost/vancanna-test');
-// This will be hidden when the application is live
-// mongoose.connect('mongodb://vancanna:password123@ds153775.mlab.com:53775/vancanna');
+mongoose.connect(keys.mongoose.mlab);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -28,7 +28,7 @@ app.use(methodOverride('_method'));
 // Passport Config
 // This will be hidden once the application is live
 app.use(require('express-session')({
-  secret: 'shhh its a secret',
+  secret: keys.session.secret,
   resave: false,
   saveUninitialized: false,
   maxAge: 365 * 24 * 60 * 60 * 1000

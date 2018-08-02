@@ -6,6 +6,7 @@ const middleware = require('../middleware');
 const passport       = require('passport');
 const LocalStrategy  = require('passport-local');
 const passportSetup = require('../config/google-passport-setup');
+const keys = require('../config/keys');
 
 // Login page
 router.get('/login', (req, res) => {
@@ -82,8 +83,7 @@ router.get('/admin', middleware.isLoggedIn, (req, res) => {
 
 // Admin Logic
 router.post('/admin', middleware.isLoggedIn, (req, res) => {
-  // This will be hidden when the application is live
-  if(req.body.secret == 'high') {
+  if(req.body.secret == keys.admin.secret) {
     req.user.admin = true;
     req.user.save();
     console.log('Successfully added as admin')
@@ -104,8 +104,7 @@ router.get('/moderator', middleware.isLoggedIn, (req, res) => {
 
 // Moderator Logic
 router.post('/moderator', middleware.isLoggedIn, (req, res) => {
-  // This will be hidden when the application is live
-  if(req.body.secret == 'highmod') {
+  if(req.body.secret == keys.moderator.secret) {
     req.user.moderator = true;
     req.user.save();
     console.log('Successfully added as moderator')
