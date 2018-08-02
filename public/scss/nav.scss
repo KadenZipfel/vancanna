@@ -3,14 +3,21 @@
   flex-direction: row;
   padding: 10px;
   align-items: center;
-  margin-top: -15px;
+  justify-content: center;
+  margin: -15px 0 5px 0;
+  background-color: #d6dbd7;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  font-size: 17px;
+  font-family: 'Oswald';
+  text-transform: uppercase;
 }
 
 .low-nav__dispensary,
 .low-nav__strain {
   margin-right: 10px;
   text-decoration: none;
-  color: darkgrey;
+  color: darkslategrey;
 
   &:hover {
     color: black;
@@ -21,7 +28,8 @@
   text-decoration: none;
   margin-right: 10px;
   align-self: stretch;
-  color: darkgrey
+  color: darkslategrey;
+  margin-top: -3px;
 
   &:hover {
     color: black;

@@ -16,9 +16,6 @@
       </div>
     <% }); %>
   </div>
-  <% if(user && user.admin || user && user.moderator == true) { %>
-    <a class="btn btn-default" href="dispensaries/<%= strain.dispensary %>/strains/new">Add a new strain</a>
-  <% } %>
 </div>
 
 <% include ../partials/footer %>

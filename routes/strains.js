@@ -6,7 +6,7 @@ const middleware = require('../middleware');
 const User = require('../models/User');
 
 // New strain page
-router.get('/new', middleware.isAdmin, (req, res) => {
+router.get('/new', middleware.checkDispensaryOwnership, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);
@@ -17,7 +17,7 @@ router.get('/new', middleware.isAdmin, (req, res) => {
 });
 
 // New strain logic
-router.post('/', middleware.isAdmin, (req, res) => {
+router.post('/', middleware.checkDispensaryOwnership, (req, res) => {
   Dispensary.findById(req.params.id, (err, dispensary) => {
     if(err) {
       console.log(err);
