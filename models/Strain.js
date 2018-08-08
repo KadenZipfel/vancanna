@@ -22,7 +22,10 @@ const strainSchema = new mongoose.Schema({
   },
   thcContent: Number,
   cbdContent: Number,
-  avgRating: Number
+  avgRating: {
+    type: Number,
+    default: 0
+  }
   // Consider adding flavors and effects
 });
 

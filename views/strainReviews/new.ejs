@@ -1,34 +1,48 @@
 <% include ../partials/header %>
 
 <div class="container">
-  <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
-    <h1 style="text-align: center;">Add New Review for <%= strain.name %></h1>
-    <div class="well login-well">
-      <p>Fields with an asterisk are required.</p>
-      <form action="/dispensaries/<%= dispensary_id %>/strains/<%= strain._id %>/reviews" method="POST">
-        <div class="form-group">
-          <input class="form-control" type="textarea" name="text" placeholder="Text *" autocomplete="off" pattern=".{50,}" required>
-        </div>
-        <div class="form-group">
-          <select name="rating" class="form-control" required>
-            <option value="1">&#9733;</option>
-            <option value="2">&#9733; &#9733;</option>
-            <option value="3">&#9733; &#9733; &#9733;</option>
-            <option value="4">&#9733; &#9733; &#9733; &#9733;</option>
-            <option value="5" selected="selected">&#9733; &#9733; &#9733; &#9733; &#9733;</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" name="flavors" placeholder="Flavors">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" name="effects" placeholder="Effects">
-        </div>
-        <em><p>Note: Reviews must be at least 50 characters.</p></em>
-        <div class="form-group">
-          <button class="btn btn-lg btn-success btn-block">Add</button>
-        </div>
-      </form>
+  <div class="col-md-6">
+    <div class="low-nav">
+      <a href="/dispensaries/<%= dispensary._id %>" class="low-nav__dispensary">
+        <%= dispensary.name %>
+      </a>
+      <a class="arrow">></a>
+      <a href="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>" class="low-nav__strain">
+        <%= strain.name %>
+      </a>
+      <a class="arrow">></a>
+      <a href="#" class="low-nav__strain">New Review</a>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
+      <h1 style="text-align: center;">Add New Review for <%= strain.name %></h1>
+      <div class="well login-well">
+        <p>Fields with an asterisk are required.</p>
+        <form action="/dispensaries/<%= dispensary._id %>/strains/<%= strain._id %>/reviews" method="POST">
+          <div class="form-group">
+            <input class="form-control" type="textarea" name="text" placeholder="Text *" autocomplete="off" required>
+          </div>
+          <div class="form-group">
+            <select name="rating" class="form-control" required>
+              <option value="1">&#9733;</option>
+              <option value="2">&#9733; &#9733;</option>
+              <option value="3">&#9733; &#9733; &#9733;</option>
+              <option value="4">&#9733; &#9733; &#9733; &#9733;</option>
+              <option value="5" selected="selected">&#9733; &#9733; &#9733; &#9733; &#9733;</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="flavors" placeholder="Flavors">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="effects" placeholder="Effects">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-lg btn-success btn-block">Add</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

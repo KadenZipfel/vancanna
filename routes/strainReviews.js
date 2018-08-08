@@ -12,7 +12,14 @@ router.get('/reviews/new', middleware.isLoggedIn, (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('strainReviews/new', {dispensary_id: req.params.id, strain: strain, user: req.user});
+      Dispensary.findById(strain.dispensary, (err, dispensary) => {
+        if(err) {
+          console.log(err);
+        } else {
+          res.render('strainReviews/new', {dispensary: dispensary, 
+            strain: strain, user: req.user});
+        }
+      });
     }
   }); 
 });

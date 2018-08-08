@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 const Dispensary = require('../models/Dispensary');
 const Strain = require('../models/Strain');
+const sortBy = require('sort-by');
 
 // Landing page
 router.get('/', (req, res) => {
@@ -10,10 +11,12 @@ router.get('/', (req, res) => {
     if(err) {
       console.log(err);
     } else { 
+      dispensaries.sort(sortBy('avgRating')).reverse();
       Strain.find({}, (err, strains) => {
         if(err) {
           console.log(err);
         } else {
+          strains.sort(sortBy('avgRating')).reverse();
           res.render('index', {dispensaries: dispensaries, strains: strains, user: req.user});
         }
       });
@@ -32,6 +35,7 @@ router.get('/strains', (req, res) => {
     if(err) {
       console.log(err);
     } else {
+      strains.sort(sortBy('avgRating')).reverse();
       res.render('strains/index', {strains: strains, user: req.user});
     }
   });

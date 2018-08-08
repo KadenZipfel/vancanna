@@ -9,7 +9,7 @@ middlewareObj.isLoggedIn = (req, res, next) => {
     return next();
   }
   console.log('User not logged in');
-  res.redirect('/login');
+  res.redirect('/login/google');
 }
 
 middlewareObj.isAdmin = (req, res, next) => {

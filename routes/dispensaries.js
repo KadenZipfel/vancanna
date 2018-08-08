@@ -3,6 +3,7 @@ const router = express.Router();
 const Dispensary = require('../models/Dispensary');
 const middleware = require('../middleware');
 const User = require('../models/User');
+const sortBy = require('sort-by');
 
 // Dispensaries index
 router.get('/', (req, res) => {
@@ -10,6 +11,7 @@ router.get('/', (req, res) => {
     if(err) {
       console.log(err);
     } else {
+      dispensaries.sort(sortBy('avgRating')).reverse();
       res.render('dispensaries/index', {dispensaries: dispensaries, user: req.user});
     }
   });
@@ -49,6 +51,7 @@ router.get('/:id', (req, res) => {
     if(err) {
       console.log(err);
     } else {
+
       let total = 0;
       for(var i = 0; i < dispensary.reviews.length; i++) {
         total += dispensary.reviews[i].rating;

@@ -13,14 +13,7 @@ a:hover {
 #jumbotron {
   background-color: #dce8de;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-  animation: 2s slideIn; }
-
-@keyframes slideIn {
-  0% {
-    margin-top: -10px; }
-  100% {
-    margin-top: 0; } }
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2); }
 
 #brand {
   font-family: 'Oswald';
@@ -101,7 +94,7 @@ a:hover {
 .dispensary {
   display: flex;
   flex-direction: row;
-  background-color: #dce8de;
+  background-color: #f4f8f4;
   border-radius: 5px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2); }
   @media (max-width: 1000px) {
@@ -155,12 +148,17 @@ a:hover {
 .strain {
   display: flex;
   flex-direction: row;
-  background-color: #dce8de;
+  background-color: #f4f8f4;
   border-radius: 5px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2); }
   @media (max-width: 1000px) {
     .strain {
       flex-direction: column; } }
+
+.strain__name {
+  font-family: 'Oswald';
+  font-weight: 300;
+  text-transform: uppercase; }
 
 .strain__img {
   max-height: 40vh;
@@ -199,11 +197,11 @@ a:hover {
   align-items: center;
   justify-content: center;
   margin: -15px 0 5px 0;
-  background-color: #d6dbd7;
+  background-color: #f4f8f4;
   border-radius: 5px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   font-size: 17px;
   font-family: 'Oswald';
+  font-weight: 300;
   text-transform: uppercase; }
 
 .low-nav__dispensary,

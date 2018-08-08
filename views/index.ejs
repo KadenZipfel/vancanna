@@ -9,7 +9,7 @@
   <div class="col-md-6">
     <h1 class="text-center">Top Dispensaries</h1>
     <hr>
-    <% dispensaries.forEach((dispensary) => { %>
+    <% dispensaries.slice(0, 4).forEach((dispensary) => { %>
       <div class="col-md-6 col-sm-6">
         <div class="thumbnail">
           <a href="dispensaries/<%= dispensary._id %>">
@@ -26,7 +26,7 @@
   <div class="col-md-6">
     <h1 class="text-center">Top Strains</h1>
     <hr>
-    <% strains.forEach((strain) => { %>
+    <% strains.slice(0, 4).forEach((strain) => { %>
       <div class="col-md-6 col-sm-6">
         <div class="thumbnail">
           <a href="dispensaries/<%= strain.dispensary %>/strains/<%= strain._id %>">
