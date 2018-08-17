@@ -4,6 +4,30 @@ const Dispensary = require('../models/Dispensary');
 const middleware = require('../middleware');
 const User = require('../models/User');
 const sortBy = require('sort-by');
+const keys = require('../config/keys');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  filename: (req, file, callback) => {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+const imageFilter = (req, file, cb) => {
+  // Accept image files only
+  if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error('Only image files are accepted'), false);
+  }
+  cb(null, true);
+};
+const upload = multer({storage: storage, fileFilter: imageFilter})
+
+const cloudinary = require('cloudinary');
+cloudinary.config({
+  cloud_name: 'kzipfel',
+  api_key: keys.cloudinary.api_key,
+  api_secret: keys.cloudinary.api_secret
+});
 
 // Dispensaries index
 router.get('/', (req, res) => {
@@ -23,22 +47,26 @@ router.get('/new', middleware.isAdmin, (req, res) => {
 });
 
 // New dispensary logic
-router.post('/', middleware.isAdmin, (req, res) => {
-  Dispensary.create({
-    name: req.body.name,
-    location: req.body.location,
-    description: req.body.description,
-    image: req.body.image
-  }, (err, dispensary) => {
-    if(err) {
-      console.log(err.message);
-      return res.redirect('back');
-    }
-    dispensary.author.id = req.user._id;
-    dispensary.author.username = req.user.username;
-    dispensary.save();
-    console.log('Dispensary added to db: ', dispensary);
-    res.redirect('/dispensaries/' + dispensary._id);
+router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
+  cloudinary.uploader.upload(req.file.path, (result) => {
+    // Add cloudinary url for image to dispensary object
+    req.body.image = result.secure_url;
+    Dispensary.create({
+      name: req.body.name,
+      location: req.body.location,
+      description: req.body.description,
+      image: req.body.image
+    }, (err, dispensary) => {
+      if(err) {
+        console.log(err.message);
+        return res.redirect('back');
+      }
+      dispensary.author.id = req.user._id;
+      dispensary.author.username = req.user.username;
+      dispensary.save();
+      console.log('Dispensary added to db: ', dispensary);
+      res.redirect('/dispensaries/' + dispensary._id);
+    });
   });
 });
 

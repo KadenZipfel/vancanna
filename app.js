@@ -51,6 +51,11 @@ app.use('/dispensaries/:id/strains', strainRoutes);
 app.use('/dispensaries/:id', dispensaryReviewRoutes);
 app.use('/dispensaries/:id/strains/:id', strainReviewRoutes);
 
+// 404 Error
+app.get('*', (req, res) => {
+  res.render('404', {user: req.user});
+});
+
 app.listen(PORT, () => {
   console.log(`The server is running on ${PORT}`);
 });
