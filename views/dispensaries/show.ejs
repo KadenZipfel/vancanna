@@ -27,6 +27,7 @@
           </div>
         <% } %>
       </div>
+      <div id="map"></div>
     </div>
   </div>
   <hr>
@@ -71,5 +72,31 @@
     </div>
   </div>
 </div>
+
+<script>
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: {lat: <%= dispensary.lat %>, lng: <%= dispensary.lng %>},
+      scrollwheel: false
+    });
+    const contentString = `
+      <strong><%= dispensary.name %><br />
+      <%= dispensary.location %></strong>
+      <p><%= dispensary.description %></p>
+    `
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    const marker = new google.maps.Marker({
+      position: center,
+      map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKeOCKI41tNemvX1okZ0bllAB2YXyS_I8&callback=initMap"></script>
 
 <% include ../partials/footer %>

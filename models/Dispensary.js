@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const dispensarySchema = new mongoose.Schema({
   name: String,
   location: String,
+  lat: Number,
+  lng: Number,
   description: String,
   image: String,
   author: {

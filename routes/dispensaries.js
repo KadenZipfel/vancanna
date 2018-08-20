@@ -6,6 +6,16 @@ const User = require('../models/User');
 const sortBy = require('sort-by');
 const keys = require('../config/keys');
 const multer = require('multer');
+const NodeGeocoder = require('node-geocoder');
+ 
+const options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: keys.geocoder.api_key,
+  formatter: null
+};
+ 
+const geocoder = NodeGeocoder(options);
 
 const storage = multer.diskStorage({
   filename: (req, file, callback) => {
@@ -48,25 +58,39 @@ router.get('/new', middleware.isAdmin, (req, res) => {
 
 // New dispensary logic
 router.post('/', middleware.isAdmin, upload.single('image'), (req, res) => {
-  cloudinary.uploader.upload(req.file.path, (result) => {
-    // Add cloudinary url for image to dispensary object
-    req.body.image = result.secure_url;
-    Dispensary.create({
-      name: req.body.name,
-      location: req.body.location,
-      description: req.body.description,
-      image: req.body.image
-    }, (err, dispensary) => {
-      if(err) {
-        console.log(err.message);
-        return res.redirect('back');
-      }
-      dispensary.author.id = req.user._id;
-      dispensary.author.username = req.user.username;
-      dispensary.save();
-      console.log('Dispensary added to db: ', dispensary);
-      res.redirect('/dispensaries/' + dispensary._id);
-    });
+  // Setup geocoder
+  geocoder.geocode(req.body.location, (err, data) => {
+    if(err || !data.length) {
+      console.log(err);
+      res.redirect('back');
+    } else {
+      const lat = data[0].latitude;
+      const lng = data[0].longitude;
+      const location = data[0].formattedAddress;
+      // Setup cloudinary
+      cloudinary.uploader.upload(req.file.path, (result) => {
+        // Add cloudinary url for image to dispensary object
+        req.body.image = result.secure_url;
+        Dispensary.create({
+          name: req.body.name,
+          location: req.body.location,
+          description: req.body.description,
+          image: req.body.image,
+          lat: lat,
+          lng: lng
+        }, (err, dispensary) => {
+          if(err) {
+            console.log(err.message);
+            return res.redirect('back');
+          }
+          dispensary.author.id = req.user._id;
+          dispensary.author.username = req.user.username;
+          dispensary.save();
+          console.log('Dispensary added to db: ', dispensary);
+          res.redirect('/dispensaries/' + dispensary._id);
+        });
+      });
+    }
   });
 });
 
@@ -131,17 +155,30 @@ router.get('/:id/edit', middleware.checkDispensaryOwnership, (req, res) => {
 
 // Edit dispensary logic
 router.put('/:id', middleware.checkDispensaryOwnership, (req, res) => {
-  Dispensary.findByIdAndUpdate(req.params.id, {
-    name: req.body.name,
-    location: req.body.location,
-    description: req.body.description,
-    image: req.body.image
-  }, (err, dispensary) => {
-    if(err){
+  // Setup geocoder
+  geocoder.geocode(req.body.location, (err, data) => {
+    if(err || !data.length) {
       console.log(err);
-      res.redirect('/dispensaries');
+      res.redirect('back');
     } else {
-      res.redirect('/dispensaries/' + dispensary._id);
+      const lat = data[0].latitude;
+      const lng = data[0].longitude;
+      const location = data[0].formattedAddress;
+      Dispensary.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        location: req.body.location,
+        description: req.body.description,
+        image: req.body.image,
+        lat: lat,
+        lng: lng
+      }, (err, dispensary) => {
+        if(err){
+          console.log(err);
+          res.redirect('/dispensaries');
+        } else {
+          res.redirect('/dispensaries/' + dispensary._id);
+        }
+      });
     }
   });
 });

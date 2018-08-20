@@ -2,16 +2,16 @@
 
 <div class="container">
   <h1 class="text-center"><%= user.username %></h1>
-  <p class="text-center">RP: <%= (user.points) ? user.points : 0 %></p>
+  <p class="text-center">RP: <span class="badge"><%= (user.points) ? user.points : 0 %></span></p>
   <% if(user.admin == true) { %>
-    <p class="text-center">Admin</p>
+    <p class="pull-right badge">Admin</p>
   <% } %>
   <% if(user.moderator == true) { %>
-    <p class="text-center">Moderator</p>
+    <p class="badge">Moderator</p>
   <% } %>
   <% if(user.favDispensaries) { %>
     <div class="col-md-12">
-      <h1 class="text-center">Favorite Dispensaries</h1>
+      <h1>Favorite Dispensaries</h1>
       <hr>
       <% user.favDispensaries.forEach((dispensary) => { %>
         <div class="col-md-3 col-sm-6">
@@ -29,7 +29,7 @@
   <% } %>
   <% if(user.favStrains) { %>
     <div class="col-md-12">
-      <h1 class="text-center">Favorite Strains</h1>
+      <h1>Favorite Strains</h1>
       <hr>
       <% user.favStrains.forEach((strain) => { %>
         <div class="col-md-3 col-sm-6">
@@ -45,7 +45,7 @@
       <% }) %>
     </div>
   <% } %>
-  <a class="pull-right" href="/logout">Logout</a>
+  <a class="pull-right btn btn-danger" href="/logout">Logout</a>
 </div> 
 
 <% include ../partials/footer %>

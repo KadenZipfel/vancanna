@@ -75,6 +75,10 @@ a:hover {
 #btn {
   margin-bottom: 10px; }
 
+#map {
+  min-height: 40vh;
+  width: 100%; }
+
 .dispensaries {
   display: flex;
   flex-direction: column;
